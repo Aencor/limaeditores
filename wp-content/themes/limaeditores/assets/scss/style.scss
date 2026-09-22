@@ -1,0 +1,45 @@
+@import "tailwindcss";
+
+@theme {
+  --font-serif: 'Merriweather', Georgia, serif;
+  --font-sans: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+
+  --color-brand-primary: #74A626;
+  --color-brand-primary-hover: #5E891C;
+  --color-brand-accent: #C4D626;
+  --color-brand-charcoal: #3A3D40;
+  --color-brand-dark: #1C2518;
+  --color-brand-deep: #141C11;
+  --color-brand-light: #F8FAF3;
+  --color-brand-cream: #F3F6EB;
+  --color-brand-muted: #64748B;
+}
+
+/* Custom Base Styles for Lima Editores */
+html {
+  font-family: var(--font-sans);
+  color: #1e293b;
+  background-color: #f8fafc;
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+/* Legal Bookstore Typography & Elements */
+.font-serif {
+  font-family: var(--font-serif);
+}
+
+.font-sans {
+  font-family: var(--font-sans);
+}
+
+/* WooCommerce Enhancements */
+@import "woocommerce";

@@ -1,0 +1,85 @@
+services:
+  db-limaeditores:
+    image: mariadb:10.11
+    restart: unless-stopped
+    ports:
+      - "${DB_PORT:-3308}:3306"
+    environment:
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD:-limaeditores_root_pass}
+      MYSQL_DATABASE: ${MYSQL_DATABASE:-limaeditores_db}
+      MYSQL_USER: ${MYSQL_USER:-limaeditores_user}
+      MYSQL_PASSWORD: ${MYSQL_PASSWORD:-limaeditores_pass}
+    volumes:
+      - db_data:/var/lib/mysql
+
+  wordpress-limaeditores:
+    depends_on:
+      - db-limaeditores
+    image: wordpress:latest
+    restart: unless-stopped
+    ports:
+      - "${WP_PORT:-8082}:80"
+    environment:
+      WORDPRESS_DB_HOST: db-limaeditores
+      WORDPRESS_DB_USER: ${MYSQL_USER:-limaeditores_user}
+      WORDPRESS_DB_PASSWORD: ${MYSQL_PASSWORD:-limaeditores_pass}
+      WORDPRESS_DB_NAME: ${MYSQL_DATABASE:-limaeditores_db}
+      WORDPRESS_CONFIG_EXTRA: |
+        define('WP_MEMORY_LIMIT', '512M');
+        define('WP_MAX_MEMORY_LIMIT', '512M');
+        if (isset($$_SERVER['HTTP_X_FORWARDED_PROTO']) && $$_SERVER['HTTP_X_FORWARDED_PROTO'] === 'https') {
+            $$_SERVER['HTTPS'] = 'on';
+        }
+        if (isset($$_SERVER['HTTP_HOST'])) {
+            $$scheme = (isset($$_SERVER['HTTPS']) && $$_SERVER['HTTPS'] === 'on') ? 'https' : 'http';
+            define('WP_HOME', $$scheme . '://' . $$_SERVER['HTTP_HOST']);
+            define('WP_SITEURL', $$scheme . '://' . $$_SERVER['HTTP_HOST']);
+        }
+    volumes:
+      - wp_core:/var/www/html
+      - ./wp-content:/var/www/html/wp-content
+      - ./uploads.ini:/usr/local/etc/php/conf.d/uploads.ini
+    networks:
+      default:
+      proxy-network:
+        aliases:
+          - wordpress-limaeditores
+
+  phpmyadmin-limaeditores:
+    image: phpmyadmin/phpmyadmin
+    restart: unless-stopped
+    ports:
+      - "${PMA_PORT:-8083}:80"
+    environment:
+      PMA_HOST: db-limaeditores
+      PMA_USER: ${MYSQL_USER:-limaeditores_user}
+      PMA_PASSWORD: ${MYSQL_PASSWORD:-limaeditores_pass}
+    depends_on:
+      - db-limaeditores
+
+  wpcli:
+    image: wordpress:cli-2.11-php8.2
+    container_name: limaeditores_wpcli
+    user: "33:33"
+    profiles: ["tools"]
+    depends_on:
+      - db-limaeditores
+      - wordpress-limaeditores
+    volumes:
+      - wp_core:/var/www/html
+      - ./wp-content:/var/www/html/wp-content
+      - ./uploads.ini:/usr/local/etc/php/conf.d/uploads.ini
+    environment:
+      WORDPRESS_DB_HOST: db-limaeditores
+      WORDPRESS_DB_NAME: ${MYSQL_DATABASE:-limaeditores_db}
+      WORDPRESS_DB_USER: ${MYSQL_USER:-limaeditores_user}
+      WORDPRESS_DB_PASSWORD: ${MYSQL_PASSWORD:-limaeditores_pass}
+
+networks:
+  proxy-network:
+    name: nathalielesbachescom_default
+    external: true
+
+volumes:
+  db_data:
+  wp_core:
