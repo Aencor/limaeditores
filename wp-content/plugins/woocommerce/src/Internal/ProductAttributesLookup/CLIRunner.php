@@ -2,15 +2,14 @@
 
 namespace Automattic\WooCommerce\Internal\ProductAttributesLookup;
 
-use Automattic\WooCommerce\Internal\Traits\AccessiblePrivateMethods;
+use Automattic\WooCommerce\Enums\ProductStatus;
+use Automattic\WooCommerce\Internal\Utilities\ProductUtil;
 use WP_CLI;
 
 /**
- * Command line tools to handle the regeneration of the product aatributes lookup table.
+ * Command line tools to handle the regeneration of the product attributes lookup table.
  */
 class CLIRunner {
-
-	use AccessiblePrivateMethods;
 
 	/**
 	 * The instance of DataRegenerator to use.
@@ -28,29 +27,16 @@ class CLIRunner {
 
 	/**
 	 * Creates a new instance of the class.
+	 *
+	 * Normally we define a public 'init' method with the class dependencies passed as arguments
+	 * and then the DI container executes it, but if we do that a dummy command will be created
+	 * for that method. Therefore, in this case we retrieve the dependencies manually instead.
 	 */
 	public function __construct() {
-		self::mark_method_as_accessible( 'init' );
+		$container               = wc_get_container();
+		$this->data_regenerator  = $container->get( DataRegenerator::class );
+		$this->lookup_data_store = $container->get( LookupDataStore::class );
 	}
-
-	// phpcs:disable WooCommerce.Functions.InternalInjectionMethod
-
-	/**
-	 * Class initialization, invoked by the DI container.
-	 *
-	 * This method is normally defined as public, we define it as private here
-	 * (and "publicize" it in the constructor) to prevent WP_CLI from
-	 * creating a dummy command for it.
-	 *
-	 * @param DataRegenerator $data_regenerator The instance of DataRegenerator to use.
-	 * @param LookupDataStore $lookup_data_store The instance of DataRegenerator to use.
-	 */
-	private function init( DataRegenerator $data_regenerator, LookupDataStore $lookup_data_store ) {
-		$this->data_regenerator  = $data_regenerator;
-		$this->lookup_data_store = $lookup_data_store;
-	}
-
-	// phpcs:enable WooCommerce.Functions.InternalInjectionMethod
 
 	// phpcs:disable Generic.CodeAnalysis.UnusedFunctionParameter.FoundAfterLastUsed
 
@@ -398,10 +384,8 @@ class CLIRunner {
 
 		$was_enabled = 'yes' === get_option( 'woocommerce_attribute_lookup_enabled' );
 
-		// phpcs:ignore Generic.Commenting.Todo.TaskFound
-		// TODO: adjust for non-CPT datastores (this is only used for the progress bar, though).
-		$products_count = wp_count_posts( 'product' );
-		$products_count = intval( $products_count->publish ) + intval( $products_count->pending ) + intval( $products_count->draft );
+		$products_count = wc_get_container()->get( ProductUtil::class )->get_counts_for_type( 'product' );
+		$products_count = ( $products_count[ ProductStatus::PUBLISH ] ?? 0 ) + ( $products_count[ ProductStatus::PENDING ] ?? 0 ) + ( $products_count[ ProductStatus::DRAFT ] ?? 0 );
 
 		if ( ! $this->lookup_data_store->regeneration_is_in_progress() || array_key_exists( 'from-scratch', $assoc_args ) ) {
 			$info = $this->get_lookup_table_info();

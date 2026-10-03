@@ -9,6 +9,7 @@ use _WP_Dependency;
 use Automattic\WooCommerce\Admin\Features\Features;
 use Automattic\WooCommerce\Admin\PageController;
 use Automattic\WooCommerce\Internal\Admin\Loader;
+use Automattic\WooCommerce\Internal\Admin\Settings\SettingsUIRequestContext;
 
 /**
  * WCAdminAssets Class.
@@ -88,10 +89,12 @@ class WCAdminAssets {
 	public static function get_url( $file, $ext ) {
 		$suffix = '';
 
-		// Potentially enqueue minified JavaScript.
+		// Potentially enqueue minified JavaScript, but only if the minified file exists.
+		// Core builds do not ship minified JS files, so this also guards against the
+		// 'minified-js' feature being force-enabled (e.g. via WooCommerce Beta Tester).
 		if ( $ext === 'js' ) {
 			$script_debug = defined( 'SCRIPT_DEBUG' ) && SCRIPT_DEBUG;
-			$suffix       = self::should_use_minified_js_file( $script_debug ) ? '.min' : '';
+			$suffix       = self::should_use_minified_js_file( $script_debug ) && is_readable( WC_ADMIN_ABSPATH . self::get_path( $ext ) . $file . '.min.' . $ext ) ? '.min' : '';
 		}
 
 		return plugins_url( self::get_path( $ext ) . $file . $suffix . '.' . $ext, WC_ADMIN_PLUGIN_FILE );
@@ -245,11 +248,47 @@ class WCAdminAssets {
 
 		wp_enqueue_script( WC_ADMIN_APP );
 		wp_enqueue_style( WC_ADMIN_APP );
+
 		wp_enqueue_style( 'wc-material-icons' );
 		wp_enqueue_style( 'wc-onboarding' );
 
+		if ( PageController::is_settings_page() ) {
+			$this->register_script( 'wp-admin-scripts', 'settings-embed', true, $this->get_settings_ui_script_dependencies() );
+			$this->register_style( 'settings-embed', 'style', array( 'wp-components' ) );
+		}
+
 		// Preload our assets.
 		$this->output_header_preload_tags();
+	}
+
+	/**
+	 * Modify script dependencies based on various conditions to only load the necessary scripts.
+	 *
+	 * @param array  $dependencies Array of script dependencies.
+	 * @param string $script Script name.
+	 * @return array Modified dependencies.
+	 */
+	private function modify_script_dependencies( $dependencies, $script ) {
+		$dependencies = array_map(
+			static function ( $dependency ) {
+				return 'wp-route' === $dependency ? 'wp-router' : $dependency;
+			},
+			$dependencies
+		);
+
+		if ( WC_ADMIN_APP === $script ) {
+			// Remove wp-editor dependency if we're not on a customize store page since we don't use wp-editor in other pages.
+			$is_customize_store_page = (
+				PageController::is_admin_page() &&
+				isset( $_GET['path'] ) && // phpcs:ignore WordPress.Security.NonceVerification.Recommended
+				str_starts_with( wc_clean( wp_unslash( $_GET['path'] ) ), '/customize-store' ) // phpcs:ignore WordPress.Security.NonceVerification.Recommended
+			);
+			if ( ! $is_customize_store_page ) {
+				$dependencies = array_diff( $dependencies, array( 'wp-editor' ) );
+			}
+		}
+
+		return $dependencies;
 	}
 
 	/**
@@ -277,13 +316,13 @@ class WCAdminAssets {
 			'wc-store-data',
 			'wc-currency',
 			'wc-navigation',
-			'wc-block-templates',
-			'wc-product-editor',
+			'wc-settings-ui',
 			'wc-remote-logging',
+			'wc-sanitize',
 		);
 
 		$scripts_map = array(
-			WC_ADMIN_APP    => 'app',
+			WC_ADMIN_APP    => PageController::is_embed_page() ? 'embed' : 'app',
 			'wc-csv'        => 'csv-export',
 			'wc-store-data' => 'data',
 		);
@@ -295,7 +334,7 @@ class WCAdminAssets {
 			'wc-customer-effort-score',
 			'wc-experimental',
 			'wc-navigation',
-			'wc-product-editor',
+			'wc-settings-ui',
 			WC_ADMIN_APP,
 		);
 
@@ -307,27 +346,12 @@ class WCAdminAssets {
 				$script_assets          = require WC_ADMIN_ABSPATH . WC_ADMIN_DIST_JS_FOLDER . $script_path_name . '/' . $script_assets_filename;
 				$script_version         = self::get_file_version( 'js', $script_assets['version'] );
 
-				global $wp_version;
-				if ( 'app' === $script_path_name && version_compare( $wp_version, '6.3', '<' ) ) {
-					// Remove wp-router dependency for WordPress versions < 6.3 because wp-router is not included in those versions. We only use wp-router in customize store pages and the feature is only available in WordPress 6.3+.
-					// We can remove this once our minimum support is WP 6.3.
-					$script_assets['dependencies'] = array_diff( $script_assets['dependencies'], array( 'wp-router' ) );
-				}
-
-				// Remove wp-editor dependency if we're not on a customize store page since we don't use wp-editor in other pages.
-				$is_customize_store_page = (
-					PageController::is_admin_page() &&
-					isset( $_GET['path'] ) &&
-					str_starts_with( wc_clean( wp_unslash( $_GET['path'] ) ), '/customize-store' )
-				);
-				if ( ! $is_customize_store_page && WC_ADMIN_APP === $script ) {
-					$script_assets['dependencies'] = array_diff( $script_assets['dependencies'], array( 'wp-editor' ) );
-				}
+				$script_dependencies = $this->modify_script_dependencies( $script_assets['dependencies'], $script, $script_path_name );
 
 				wp_register_script(
 					$script,
 					self::get_url( $script_path_name . '/index', 'js' ),
-					$script_assets['dependencies'],
+					$script_dependencies,
 					$script_version,
 					true
 				);
@@ -359,12 +383,6 @@ class WCAdminAssets {
 			),
 			array(
 				'handle' => 'wc-components',
-			),
-			array(
-				'handle' => 'wc-block-templates',
-			),
-			array(
-				'handle' => 'wc-product-editor',
 			),
 			array(
 				'handle' => 'wc-customer-effort-score',
@@ -407,6 +425,34 @@ class WCAdminAssets {
 	}
 
 	/**
+	 * Get extension script handles that must load before the settings embed app mounts.
+	 *
+	 * @return array
+	 */
+	private function get_settings_ui_script_dependencies(): array {
+		try {
+			if ( ! class_exists( SettingsUIRequestContext::class ) ) {
+				return array();
+			}
+
+			$context = SettingsUIRequestContext::get_current();
+		} catch ( \Throwable $e ) {
+			return array();
+		}
+
+		if ( ! $context ) {
+			return array();
+		}
+
+		$dependencies = array_merge(
+			array( 'wc-settings-ui' ),
+			$context->get_script_handles()
+		);
+
+		return array_values( array_unique( $dependencies ) );
+	}
+
+	/**
 	 * Injects wp-shared-settings as a dependency if it's present.
 	 */
 	public function inject_wc_settings_dependencies() {
@@ -425,8 +471,6 @@ class WCAdminAssets {
 				'wc-date',
 				'wc-components',
 				'wc-tracks',
-				'wc-block-templates',
-				'wc-product-editor',
 			);
 			foreach ( $handles_for_injection as $handle ) {
 				$script = $wp_scripts->query( $handle, 'registered' );

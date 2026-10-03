@@ -98,7 +98,7 @@ class CLIRunner {
 					sprintf(
 						// translators: %s - link to testing instructions webpage.
 						__( 'Custom order table usage is not enabled. If you are testing, you can enable it by following the testing instructions in %s', 'woocommerce' ),
-						'https://github.com/woocommerce/woocommerce/wiki/High-Performance-Order-Storage-Upgrade-Recipe-Book'
+						'https://developer.woocommerce.com/docs/features/high-performance-order-storage/recipe-book/'
 					)
 				);
 			}
@@ -218,7 +218,8 @@ class CLIRunner {
 					__( 'Beginning batch #%1$d (%2$d orders/batch).', 'woocommerce' ),
 					$batch_count,
 					$batch_size
-				)
+				),
+				'wc'
 			);
 			$batch_start_time = microtime( true );
 			$order_ids        = $this->synchronizer->get_next_batch_to_process( $batch_size );
@@ -235,7 +236,8 @@ class CLIRunner {
 					$batch_count,
 					count( $order_ids ),
 					$batch_total_time
-				)
+				),
+				'wc'
 			);
 
 			++$batch_count;
@@ -330,7 +332,7 @@ class CLIRunner {
 	 * ---
 	 *
 	 * [--order-types]
-	 * : Comma seperated list of order types that needs to be verified. For example, --order-types=shop_order,shop_order_refund
+	 * : Comma-separated list of order types that needs to be verified. For example, --order-types=shop_order,shop_order_refund
 	 * ---
 	 * default: Output of function `wc_get_order_types( 'cot-migration' )`
 	 *
@@ -385,7 +387,7 @@ class CLIRunner {
 		if ( 0 === count( $order_types ) ) {
 			return WP_CLI::error(
 				sprintf(
-				/* Translators: %s is the comma seperated list of order types. */
+				/* Translators: %s is the comma-separated list of order types. */
 					__( 'Passed order type does not match any registered order types. Following order types are registered: %s', 'woocommerce' ),
 					implode( ',', wc_get_order_types( 'cot-migration' ) )
 				)
@@ -411,7 +413,8 @@ class CLIRunner {
 					__( 'Beginning verification for batch #%1$d (%2$d orders/batch).', 'woocommerce' ),
 					$batch_count,
 					$batch_size
-				)
+				),
+				'wc'
 			);
 
 			// phpcs:disable WordPress.DB.PreparedSQLPlaceholders.ReplacementsWrongNumber, WordPress.DB.PreparedSQL.InterpolatedNotPrepared -- Inputs are prepared.
@@ -510,7 +513,8 @@ class CLIRunner {
 					$batch_count,
 					count( $order_ids ),
 					$batch_total_time
-				)
+				),
+				'wc'
 			);
 
 			$order_id_start  = max( $order_ids ) + 1;
@@ -927,7 +931,7 @@ ORDER BY $meta_table.order_id ASC, $meta_table.meta_key ASC;
 	 *    # Cleanup post data for order 314.
 	 *    $ wp wc hpos cleanup 314
 	 *
-	 *    # Cleanup postmeta for orders with IDs betweeen 10 and 100 and order 314.
+	 *    # Cleanup postmeta for orders with IDs between 10 and 100 and order 314.
 	 *    $ wp wc hpos cleanup 10-100 314
 	 *
 	 *    # Cleanup postmeta for all orders.
@@ -980,7 +984,7 @@ ORDER BY $meta_table.order_id ASC, $meta_table.meta_key ASC;
 					++$count;
 
 					// translators: %d is an order ID.
-					WP_CLI::debug( sprintf( __( 'Cleanup completed for order %d.', 'woocommerce' ), $order_id ) );
+					WP_CLI::debug( sprintf( __( 'Cleanup completed for order %d.', 'woocommerce' ), $order_id ), 'wc' );
 				} catch ( \Exception $e ) {
 					// translators: %1$d is an order ID, %2$s is an error message.
 					WP_CLI::warning( sprintf( __( 'An error occurred while cleaning up order %1$d: %2$s', 'woocommerce' ), $order_id, $e->getMessage() ) );
@@ -1161,10 +1165,10 @@ ORDER BY $meta_table.order_id ASC, $meta_table.meta_key ASC;
 	 * ---
 	 *
 	 * [--meta_keys=<meta_keys>]
-	 * : Comma separated list of meta keys to backfill.
+	 * : Comma-separated list of meta keys to backfill.
 	 *
 	 * [--props=<props>]
-	 * : Comma separated list of order properties to backfill.
+	 * : Comma-separated list of order properties to backfill.
 	 *
 	 * @since 8.6.0
 	 *
@@ -1350,7 +1354,11 @@ ORDER BY $meta_table.order_id ASC, $meta_table.meta_key ASC;
 	 */
 	private function toggle_compat_mode( bool $enabled ): void {
 		if ( ! $this->synchronizer->check_orders_table_exists() ) {
-			WP_CLI::error( __( 'HPOS tables do not exist.', 'woocommerce' ) );
+			if ( $enabled ) {
+				$this->synchronizer->create_database_tables();
+			} else {
+				WP_CLI::error( __( 'HPOS tables do not exist.', 'woocommerce' ) );
+			}
 		}
 
 		$currently_enabled = $this->synchronizer->data_sync_is_enabled();

@@ -66,7 +66,7 @@ abstract class WP_Background_Process extends WP_Async_Request {
 	 * Dispatch
 	 *
 	 * @access public
-	 * @return void
+	 * @return array|WP_Error
 	 */
 	public function dispatch() {
 		// Schedule the cron healthcheck.
@@ -420,6 +420,7 @@ abstract class WP_Background_Process extends WP_Async_Request {
 		// Adds every 5 minutes to the existing schedules.
 		$schedules[ $this->identifier . '_cron_interval' ] = array(
 			'interval' => MINUTE_IN_SECONDS * $interval,
+			/* translators: %d: Number of minutes between cron runs. */
 			'display'  => sprintf( __( 'Every %d minutes', 'woocommerce' ), $interval ),
 		);
 

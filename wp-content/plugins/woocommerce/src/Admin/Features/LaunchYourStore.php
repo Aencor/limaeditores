@@ -1,11 +1,10 @@
-<?php
+<?php declare( strict_types = 1 );
 
 namespace Automattic\WooCommerce\Admin\Features;
 
-use Automattic\WooCommerce\Admin\PageController;
-use Automattic\WooCommerce\Blocks\Utils\BlockTemplateUtils;
 use Automattic\WooCommerce\Admin\WCAdminHelper;
 use Automattic\WooCommerce\Internal\Admin\WCAdminUser;
+
 
 /**
  * Takes care of Launch Your Store related actions.
@@ -41,6 +40,7 @@ class LaunchYourStore {
 			'woocommerce_coming_soon'      => array( 'yes', 'no' ),
 			'woocommerce_store_pages_only' => array( 'yes', 'no' ),
 			'woocommerce_private_link'     => array( 'yes', 'no' ),
+			'woocommerce_feature_site_visibility_badge_enabled' => array( 'yes', 'no' ),
 		);
 
 		$event_data = array();
@@ -124,6 +124,7 @@ class LaunchYourStore {
 				'woocommerce_store_pages_only' => get_option( 'woocommerce_store_pages_only' ),
 				'woocommerce_private_link'     => get_option( 'woocommerce_private_link' ),
 				'woocommerce_share_key'        => get_option( 'woocommerce_share_key' ),
+				'woocommerce_feature_site_visibility_badge_enabled' => get_option( 'woocommerce_feature_site_visibility_badge_enabled', 'yes' ),
 			);
 		}
 
@@ -179,7 +180,7 @@ class LaunchYourStore {
 		}
 
 		$store_pages_only = get_option( 'woocommerce_store_pages_only' ) === 'yes';
-		if ( $store_pages_only && ! WCAdminHelper::is_store_page() ) {
+		if ( $store_pages_only && ! WCAdminHelper::is_current_page_store_page() ) {
 			return false;
 		}
 
@@ -191,7 +192,7 @@ class LaunchYourStore {
 			// translators: no need to translate it. It's a link.
 			__(
 				"
-			This page is in \"Coming soon\" mode and is only visible to you and those who have permission. To make it public to everyone,&nbsp;<a href='%s'>change visibility settings</a>
+			This page is in \"Coming soon\" mode and is only visible to you and those who have permission. To make it public to everyone,&nbsp;<a href='%s'>change visibility settings</a>.
 		",
 				'woocommerce'
 			),

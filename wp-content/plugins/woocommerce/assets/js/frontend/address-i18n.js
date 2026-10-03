@@ -13,11 +13,9 @@ jQuery( function( $ ) {
 			field.find( 'label .optional' ).remove();
 			field.addClass( 'validate-required' );
 
-			if ( field.find( 'label .required' ).length === 0 ) {
+			if ( field.find( 'label .required[aria-hidden="true"]' ).length === 0 ) {
 				field.find( 'label' ).append(
-					'&nbsp;<abbr class="required" title="' +
-					wc_address_i18n_params.i18n_required_text +
-					'">*</abbr>'
+					'&nbsp;<span class="required" aria-hidden="true">*</span>'
 				);
 			}
 		} else {
@@ -93,13 +91,12 @@ jQuery( function( $ ) {
 					field.data( 'priority', fieldLocale.priority );
 				}
 
-				// Hidden fields.
-				if ( 'state' !== key ) {
-					if ( typeof fieldLocale.hidden !== 'undefined' && true === fieldLocale.hidden ) {
-						field.hide().find( ':input' ).val( '' );
-					} else {
-						field.show();
-					}
+				// Hidden fields. State visibility (show) is managed by
+				// country-select.js, but locale can still hide it.
+				if ( true === fieldLocale.hidden ) {
+					field.hide().find( ':input' ).val( '' );
+				} else if ( 'state' !== key ) {
+					field.show();
 				}
 
 				// Class changes.

@@ -6,8 +6,8 @@ use \DateTime;
 use \Exception;
 use \InvalidArgumentException;
 use Automattic\WooCommerce\Internal\RegisterHooksInterface;
+use Automattic\WooCommerce\Internal\Utilities\FilesystemUtil;
 use Automattic\WooCommerce\Proxies\LegacyProxy;
-use Automattic\WooCommerce\Internal\Traits\AccessiblePrivateMethods;
 use Automattic\WooCommerce\Utilities\TimeUtil;
 
 /**
@@ -35,10 +35,14 @@ use Automattic\WooCommerce\Utilities\TimeUtil;
  */
 class TransientFilesEngine implements RegisterHooksInterface {
 
-	use AccessiblePrivateMethods;
-
 	private const CLEANUP_ACTION_NAME  = 'woocommerce_expired_transient_files_cleanup';
 	private const CLEANUP_ACTION_GROUP = 'wc_batch_processes';
+
+	/**
+	 * Regular expression matching the name of a directory that holds the files expiring on a given date.
+	 * Equivalent to the "[2-9][0-9][0-9][0-9]-[01][0-9]-[0-3][0-9]" glob pattern used previously.
+	 */
+	private const EXPIRATION_DATE_DIRECTORY_REGEX = '/^[2-9]\d{3}-[01]\d-[0-3]\d$/';
 
 	/**
 	 * The instance of LegacyProxy to use.
@@ -51,12 +55,12 @@ class TransientFilesEngine implements RegisterHooksInterface {
 	 * Register hooks.
 	 */
 	public function register() {
-		self::add_action( self::CLEANUP_ACTION_NAME, array( $this, 'handle_expired_files_cleanup_action' ) );
-		self::add_filter( 'woocommerce_debug_tools', array( $this, 'add_debug_tools_entries' ), 999, 1 );
+		add_action( self::CLEANUP_ACTION_NAME, array( $this, 'handle_expired_files_cleanup_action' ) );
+		add_filter( 'woocommerce_debug_tools', array( $this, 'add_debug_tools_entries' ), 999, 1 );
 
-		self::add_action( 'init', array( $this, 'add_endpoint' ), 0 );
-		self::add_filter( 'query_vars', array( $this, 'handle_query_vars' ), 0 );
-		self::add_action( 'parse_request', array( $this, 'handle_parse_request' ), 0 );
+		add_action( 'init', array( $this, 'add_endpoint' ), 0 );
+		add_filter( 'query_vars', array( $this, 'handle_query_vars' ), 0 );
+		add_action( 'parse_request', array( $this, 'handle_parse_request' ), 0 );
 	}
 
 	/**
@@ -103,27 +107,52 @@ class TransientFilesEngine implements RegisterHooksInterface {
 		 */
 		$transient_files_directory = apply_filters( 'woocommerce_transient_files_directory', $default_transient_files_directory );
 
-		$realpathed_transient_files_directory = $this->legacy_proxy->call_function( 'realpath', $transient_files_directory );
-		if ( false === $realpathed_transient_files_directory ) {
+		$resolved_transient_files_directory = $this->resolve_directory_if_it_exists( $transient_files_directory );
+		if ( false === $resolved_transient_files_directory ) {
 			if ( $transient_files_directory === $default_transient_files_directory ) {
 				if ( ! $this->legacy_proxy->call_function( 'wp_mkdir_p', $transient_files_directory ) ) {
 					throw new Exception( "Can't create directory: $transient_files_directory" );
 				}
 
-				// Create infrastructure to prevent listing the contents of the transient files directory.
-				require_once ABSPATH . 'wp-admin/includes/file.php';
-				\WP_Filesystem();
-				$wp_filesystem = $this->legacy_proxy->get_global( 'wp_filesystem' );
+				// Prevent listing the directory contents. Use a direct filesystem: this dir is web-server-writable
+				// under wp-content/uploads, so honoring FS_METHOD is unnecessary and breaks FTP-without-creds setups.
+				$wp_filesystem = FilesystemUtil::get_wp_filesystem_direct();
 				$wp_filesystem->put_contents( $transient_files_directory . '/.htaccess', 'deny from all' );
 				$wp_filesystem->put_contents( $transient_files_directory . '/index.html', '' );
 
-				$realpathed_transient_files_directory = $this->legacy_proxy->call_function( 'realpath', $transient_files_directory );
+				$resolved_transient_files_directory = $this->resolve_directory_if_it_exists( $transient_files_directory );
+				if ( false === $resolved_transient_files_directory ) {
+					// phpcs:ignore WordPress.Security.EscapeOutput.ExceptionNotEscaped -- Not rendered as output, and consistent with the other throws in this method.
+					throw new Exception( "The directory was created but can't be resolved: $transient_files_directory" );
+				}
 			} else {
 				throw new Exception( "The base transient files directory doesn't exist: $transient_files_directory" );
 			}
 		}
 
-		return untrailingslashit( $realpathed_transient_files_directory );
+		return untrailingslashit( $resolved_transient_files_directory );
+	}
+
+	/**
+	 * Get the canonical path of a directory, if the directory exists.
+	 *
+	 * Paths handled by a stream wrapper can't be resolved with realpath, which returns false for them and would
+	 * turn a perfectly valid directory into an empty string. Sites that store uploads through a stream wrapper
+	 * (the S3-Uploads plugin and WordPress VIP, where wp_upload_dir returns something like "s3://bucket/uploads")
+	 * hit that case, so for those the path is kept verbatim and only its existence is verified.
+	 *
+	 * wp_is_stream only recognizes schemes that have a wrapper actually registered, so a path that merely looks
+	 * like a URL still goes through realpath, as it did before.
+	 *
+	 * @param string $directory The directory to resolve.
+	 * @return string|false The canonical path of the directory, or false if the directory doesn't exist.
+	 */
+	private function resolve_directory_if_it_exists( string $directory ) {
+		if ( wp_is_stream( $directory ) ) {
+			return $this->legacy_proxy->call_function( 'is_dir', $directory ) ? $directory : false;
+		}
+
+		return $this->legacy_proxy->call_function( 'realpath', $directory );
 	}
 
 	/**
@@ -161,9 +190,9 @@ class TransientFilesEngine implements RegisterHooksInterface {
 		}
 		$filepath = $transient_files_directory . '/' . $filename;
 
-		require_once ABSPATH . 'wp-admin/includes/file.php';
-		\WP_Filesystem();
-		$wp_filesystem = $this->legacy_proxy->get_global( 'wp_filesystem' );
+		// Use a direct filesystem because the transient files directory is inside
+		// wp-content/uploads and is web-server writable. See get_transient_files_directory().
+		$wp_filesystem = FilesystemUtil::get_wp_filesystem_direct();
 		if ( false === $wp_filesystem->put_contents( $filepath, $file_contents ) ) {
 			throw new Exception( "Can't create file: $filepath" );
 		}
@@ -222,7 +251,7 @@ class TransientFilesEngine implements RegisterHooksInterface {
 	 * @return string The public URL of the file.
 	 */
 	public function get_public_url( string $filename ) {
-		return $this->legacy_proxy->call_function( 'get_site_url', null, '/wc/file/transient/' . $filename );
+		return $this->legacy_proxy->call_function( 'home_url', '/wc/file/transient/' . $filename );
 	}
 
 	/**
@@ -270,25 +299,52 @@ class TransientFilesEngine implements RegisterHooksInterface {
 	 *
 	 * @param int $limit Maximum number of files to delete.
 	 * @return array "deleted_count" with the number of files actually deleted, "files_remain" that will be true if there are still files left to delete.
-	 * @throws Exception The base directory for transient files (possibly changed via filter) doesn't exist.
+	 * @throws Exception The base directory for transient files (possibly changed via filter) doesn't exist, or its contents can't be listed.
 	 */
 	public function delete_expired_files( int $limit = 1000 ): array {
 		$expiration_date_gmt = $this->legacy_proxy->call_function( 'gmdate', 'Y-m-d' );
 		$base_dir            = $this->get_transient_files_directory();
-		$subdirs             = glob( $base_dir . '/[2-9][0-9][0-9][0-9]-[01][0-9]-[0-3][0-9]', GLOB_ONLYDIR );
-		if ( false === $subdirs ) {
+
+		/*
+		 * scandir, not glob: glob doesn't support stream wrappers (it always goes to the local filesystem)
+		 * and returns an empty array for paths like "s3://bucket/uploads", which would silently turn the
+		 * cleanup into a no-op on those sites. scandir returns bare names rather than full paths.
+		 */
+		$entries = scandir( $base_dir );
+		if ( false === $entries ) {
+			// phpcs:ignore WordPress.Security.EscapeOutput.ExceptionNotEscaped -- Not rendered as output, and consistent with the other throws in this class.
 			throw new Exception( "Error when getting the list of subdirectories of $base_dir" );
 		}
 
-		$subdirs         = array_map( fn( $name ) => substr( $name, strlen( $name ) - 10, 10 ), $subdirs );
+		$subdirs = array_values(
+			array_filter(
+				$entries,
+				fn( $name ) => 1 === preg_match( self::EXPIRATION_DATE_DIRECTORY_REGEX, $name ) && is_dir( $base_dir . '/' . $name )
+			)
+		);
+
 		$expired_subdirs = array_filter( $subdirs, fn( $name ) => $name < $expiration_date_gmt );
 		asort( $subdirs ); // We want to delete files starting with the oldest expiration month.
 
 		$remaining_limit = $limit;
 		$limit_reached   = false;
 		foreach ( $expired_subdirs as $subdir ) {
-			$full_dir_path   = $base_dir . '/' . $subdir;
-			$files_to_delete = glob( $full_dir_path . '/*' );
+			$full_dir_path = $base_dir . '/' . $subdir;
+
+			$dir_entries = scandir( $full_dir_path );
+			if ( false === $dir_entries ) {
+				// phpcs:ignore WordPress.Security.EscapeOutput.ExceptionNotEscaped -- Not rendered as output, and consistent with the other throws in this class.
+				throw new Exception( "Error when getting the list of files in $full_dir_path" );
+			}
+
+			$files_to_delete = array_values(
+				array_map(
+					fn( $name ) => $full_dir_path . '/' . $name,
+					// Skip dot files, matching what the "*" glob pattern used to do. This also drops "." and "..".
+					array_filter( $dir_entries, fn( $name ) => '.' !== $name[0] )
+				)
+			);
+
 			if ( count( $files_to_delete ) > $remaining_limit ) {
 				$limit_reached   = true;
 				$files_to_delete = array_slice( $files_to_delete, 0, $remaining_limit );
@@ -347,8 +403,10 @@ class TransientFilesEngine implements RegisterHooksInterface {
 	 *
 	 * NOTE: If the default interval is changed to something different from DAY_IN_SECONDS, please adjust the
 	 * "every 24h" text in add_debug_tools_entries too.
+	 *
+	 * @internal For exclusive usage of WooCommerce core, backwards compatibility not guaranteed.
 	 */
-	private function handle_expired_files_cleanup_action(): void {
+	public function handle_expired_files_cleanup_action(): void {
 		$new_interval = null;
 
 		try {
@@ -380,8 +438,10 @@ class TransientFilesEngine implements RegisterHooksInterface {
 	 *
 	 * @param array $tools_array Original debug tools array.
 	 * @return array Updated debug tools array
+	 *
+	 * @internal For exclusive usage of WooCommerce core, backwards compatibility not guaranteed.
 	 */
-	private function add_debug_tools_entries( array $tools_array ): array {
+	public function add_debug_tools_entries( array $tools_array ): array {
 		$cleanup_is_scheduled = $this->expired_files_cleanup_is_scheduled();
 
 		$tools_array['schedule_expired_transient_files_cleanup'] = array(
@@ -424,6 +484,8 @@ class TransientFilesEngine implements RegisterHooksInterface {
 
 	/**
 	 * Handle the "init" action, add rewrite rules for the "wc/file" endpoint.
+	 *
+	 * @internal For exclusive usage of WooCommerce core, backwards compatibility not guaranteed.
 	 */
 	public static function add_endpoint() {
 		add_rewrite_rule( '^wc/file/transient/?$', 'index.php?wc-transient-file-name=', 'top' );
@@ -436,8 +498,10 @@ class TransientFilesEngine implements RegisterHooksInterface {
 	 *
 	 * @param array $vars The original query variables.
 	 * @return array The updated query variables.
+	 *
+	 * @internal For exclusive usage of WooCommerce core, backwards compatibility not guaranteed.
 	 */
-	private function handle_query_vars( $vars ) {
+	public function handle_query_vars( $vars ) {
 		$vars[] = 'wc-transient-file-name';
 		return $vars;
 	}
@@ -452,8 +516,10 @@ class TransientFilesEngine implements RegisterHooksInterface {
 	 * if it exists, is public and has not expired; or will return a "Not found" status otherwise.
 	 *
 	 * The file will be served with a content type header of "text/html".
+	 *
+	 * @internal For exclusive usage of WooCommerce core, backwards compatibility not guaranteed.
 	 */
-	private function handle_parse_request() {
+	public function handle_parse_request() {
 		global $wp;
 
 		// phpcs:ignore WordPress.Security

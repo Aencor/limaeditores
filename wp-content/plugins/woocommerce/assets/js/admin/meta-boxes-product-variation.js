@@ -52,6 +52,16 @@ jQuery( function ( $ ) {
 				'.wc_input_variations_price',
 				this.maybe_enable_button_to_add_price_to_variations
 			);
+			$( document.body ).on(
+				'input',
+				'.variation-cost-field',
+				this.show_or_hide_cost_description
+			);
+			$( document ).on(
+				'click',
+				'a.switch-to-general-tab',
+				this.switch_to_general_tab
+			);
 		},
 
 		create_variations: function ( event ) {
@@ -101,10 +111,10 @@ jQuery( function ( $ ) {
 							'&action=edit&'
 					);
 
-					$.get( this_page_url, function ( response ) {
+					$.get( this_page_url, function ( page_html ) {
 						$( '#variable_product_options' ).unblock();
 						$( '#variable_product_options_inner' ).replaceWith(
-							$( response ).find(
+							$( page_html ).find(
 								'#variable_product_options_inner'
 							)
 						);
@@ -112,7 +122,7 @@ jQuery( function ( $ ) {
 						$(
 							'#product_attributes > .product_attributes'
 						).replaceWith(
-							$( response ).find(
+							$( page_html ).find(
 								'#product_attributes > .product_attributes'
 							)
 						);
@@ -183,6 +193,28 @@ jQuery( function ( $ ) {
 			} else {
 				$( '.add_variations_price_button' ).prop( 'disabled', false );
 			}
+		},
+
+		/**
+		 * Show or hide the description under the cost field when its value changes
+		 */
+		show_or_hide_cost_description: function ( e ) {
+			const target = $( e.currentTarget );
+			if( target.find( 'input' ).val() === '' ) {
+				target.find( '.description' ).show();
+			}
+			else {
+				target.find( '.description' ).hide();
+			}
+		},
+
+		/**
+		 * Switch to the "General" tab
+		 */
+		switch_to_general_tab: function ( e ) {
+			e.preventDefault();
+			$( '.product_data_tabs .general_tab a' ).trigger( 'click' );
+			return false;
 		},
 
 		/**
@@ -1199,7 +1231,8 @@ jQuery( function ( $ ) {
 			var do_variation_action = $( this ).val(),
 				data = {},
 				changes = 0,
-				value;
+				value,
+				cancel = false;
 
 			switch ( do_variation_action ) {
 				case 'delete_all':
@@ -1228,15 +1261,33 @@ jQuery( function ( $ ) {
 				case 'variable_regular_price_decrease':
 				case 'variable_sale_price_increase':
 				case 'variable_sale_price_decrease':
-					value = window.prompt(
-						woocommerce_admin_meta_boxes_variations.i18n_enter_a_value_fixed_or_percent
-					);
+					let promptMessage =
+						woocommerce_admin_meta_boxes_variations.i18n_enter_a_value_fixed_or_percent;
+
+					/**
+					 * There are two cases where sale price becomes more than regular price:
+					 * 1. When regular price is decreased
+					 * 2. When sale price is increased
+					 *
+					 * In both cases, we need to show the warning message.
+					 */
+					if (
+						do_variation_action ===
+							'variable_regular_price_decrease' ||
+						do_variation_action === 'variable_sale_price_increase'
+					) {
+						promptMessage +=
+							'\n\n' +
+							woocommerce_admin_meta_boxes_variations.i18n_sale_price_warning;
+					}
+
+					value = window.prompt( promptMessage );
 
 					if ( value != null ) {
 						if ( value.indexOf( '%' ) >= 0 ) {
 							data.value =
 								accounting.unformat(
-									value.replace( /\%/, '' ),
+									value.replace( '%', '' ),
 									woocommerce_admin.mon_decimal_point
 								) + '%';
 						} else {
@@ -1246,7 +1297,7 @@ jQuery( function ( $ ) {
 							);
 						}
 					} else {
-						return;
+						cancel = true;
 					}
 					break;
 				case 'variable_regular_price':
@@ -1266,7 +1317,16 @@ jQuery( function ( $ ) {
 					if ( value != null ) {
 						data.value = value;
 					} else {
-						return;
+						cancel = true;
+					}
+					break;
+				case 'variable_unset_cogs_value':
+					if (
+						! window.confirm (
+							woocommerce_admin_meta_boxes_variations.i18n_variation_cost_remove_warning
+							)
+					) {
+						cancel = true;
 					}
 					break;
 				case 'variable_sale_schedule':
@@ -1276,7 +1336,6 @@ jQuery( function ( $ ) {
 					data.date_to = window.prompt(
 						woocommerce_admin_meta_boxes_variations.i18n_scheduled_sale_end
 					);
-
 					if ( null === data.date_from ) {
 						data.date_from = false;
 					}
@@ -1286,7 +1345,21 @@ jQuery( function ( $ ) {
 					}
 
 					if ( false === data.date_to && false === data.date_from ) {
-						return;
+						cancel = true;
+					} else if ( data.date_from && data.date_to ) {
+						const from_ts = Date.parse( data.date_from );
+						const to_ts = Date.parse( data.date_to );
+
+						if (
+							! isNaN( from_ts ) &&
+							! isNaN( to_ts ) &&
+							to_ts < from_ts
+						) {
+							window.alert(
+								woocommerce_admin_meta_boxes_variations.i18n_scheduled_sale_end_before_start
+							);
+							cancel = true;
+						}
 					}
 					break;
 				default:
@@ -1299,41 +1372,48 @@ jQuery( function ( $ ) {
 					);
 
 					if ( null === data ) {
-						return;
+						cancel = true;
 					}
 					break;
 			}
 
-			if ( 'delete_all' === do_variation_action && data.allowed ) {
-				$( '#variable_product_options' )
-					.find( '.variation-needs-update' )
-					.removeClass( 'variation-needs-update' );
-				$( '.generate_variations' ).text( 'Generate variations' );
+			if ( cancel ) {
+				$( '#field_to_edit' ).val( 'bulk_actions' );
 			} else {
-				wc_meta_boxes_product_variations_ajax.check_for_changes();
-			}
+				if ( 'delete_all' === do_variation_action && data.allowed ) {
+					$( '#variable_product_options' )
+						.find( '.variation-needs-update' )
+						.removeClass( 'variation-needs-update' );
+					$( '.generate_variations' ).text( 'Generate variations' );
+				} else {
+					wc_meta_boxes_product_variations_ajax.check_for_changes();
+				}
 
-			wc_meta_boxes_product_variations_ajax.block();
+				wc_meta_boxes_product_variations_ajax.block();
 
-			$.ajax( {
-				url: woocommerce_admin_meta_boxes_variations.ajax_url,
-				data: {
-					action: 'woocommerce_bulk_edit_variations',
-					security:
+				$.ajax( {
+					url: woocommerce_admin_meta_boxes_variations.ajax_url,
+					data: {
+						action: 'woocommerce_bulk_edit_variations',
+						security:
 						woocommerce_admin_meta_boxes_variations.bulk_edit_variations_nonce,
-					product_id: woocommerce_admin_meta_boxes_variations.post_id,
-					product_type: $( '#product-type' ).val(),
-					bulk_action: do_variation_action,
-					data: data,
-				},
-				type: 'POST',
-				success: function () {
-					wc_meta_boxes_product_variations_pagenav.go_to_page(
-						1,
-						changes
-					);
-				},
-			} );
+						product_id: woocommerce_admin_meta_boxes_variations.post_id,
+						product_type: $( '#product-type' ).val(),
+						bulk_action: do_variation_action,
+						data: data,
+					},
+					type: 'POST',
+					success: function () {
+						wc_meta_boxes_product_variations_pagenav.go_to_page(
+							1,
+							changes
+						);
+					},
+					complete: function () {
+						$( '#field_to_edit' ).val( 'bulk_actions' );
+					}
+				});
+			}
 		},
 
 		/**
@@ -1550,6 +1630,37 @@ jQuery( function ( $ ) {
 		},
 
 		/**
+		 * Load a variations page, bypassing the unsaved-changes prompt.
+		 *
+		 * Server-side mutations navigate after their state change is already
+		 * resolved (saved, discarded, or in flight), so their refresh must run
+		 * unconditionally. The prompt lives in page_selector(), on the
+		 * merchant-initiated path only.
+		 *
+		 * @param {Int} page
+		 */
+		navigate: function ( page ) {
+			var wrapper = $( '#variable_product_options' ).find(
+				'.woocommerce_variations'
+			);
+
+			// Callers pass the page as a string when read from data attributes.
+			page = parseInt( page, 10 ) || 1;
+
+			$( '.variations-pagenav .page-selector' ).val( page );
+
+			wc_meta_boxes_product_variations_pagenav.change_classes(
+				page,
+				parseInt( wrapper.attr( 'data-total_pages' ), 10 )
+			);
+			wc_meta_boxes_product_variations_ajax
+				.load_variations( page )
+				.then(
+					wc_meta_boxes_product_variations_ajax.show_hide_variation_empty_state
+				);
+		},
+
+		/**
 		 * Navigate on variations pages
 		 *
 		 * @param {Int} page
@@ -1560,7 +1671,7 @@ jQuery( function ( $ ) {
 			qty = qty || 0;
 
 			wc_meta_boxes_product_variations_pagenav.set_paginav( qty );
-			wc_meta_boxes_product_variations_pagenav.set_page( page );
+			wc_meta_boxes_product_variations_pagenav.navigate( page );
 		},
 
 		/**
@@ -1570,20 +1681,22 @@ jQuery( function ( $ ) {
 			var selected = parseInt( $( this ).val(), 10 ),
 				wrapper = $( '#variable_product_options' ).find(
 					'.woocommerce_variations'
-				);
+				),
+				need_update = wrapper.find( '.variation-needs-update' ),
+				current_page = parseInt( wrapper.attr( 'data-page' ), 10 ) || 1;
 
 			$( '.variations-pagenav .page-selector' ).val( selected );
 
-			wc_meta_boxes_product_variations_ajax.check_for_changes();
-			wc_meta_boxes_product_variations_pagenav.change_classes(
-				selected,
-				parseInt( wrapper.attr( 'data-total_pages' ), 10 )
-			);
-			wc_meta_boxes_product_variations_ajax
-				.load_variations( selected )
-				.then(
-					wc_meta_boxes_product_variations_ajax.show_hide_variation_empty_state()
-				);
+			// This handler only runs for merchant-initiated page changes;
+			// server-side mutations refresh through navigate() directly.
+			if ( ! wc_meta_boxes_product_variations_ajax.check_for_changes() ) {
+				// Restore the dirty state cleared for legacy callers when the prompt is dismissed.
+				need_update.addClass( 'variation-needs-update' );
+				$( '.variations-pagenav .page-selector' ).val( current_page );
+				return;
+			}
+
+			wc_meta_boxes_product_variations_pagenav.navigate( selected );
 		},
 
 		/**

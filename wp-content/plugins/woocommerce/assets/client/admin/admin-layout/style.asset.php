@@ -1,1 +1,1 @@
-<?php return array('version' => 'be839019477f6d143c11');
+<?php return array('version' => '306ead480774feefcd72');

@@ -7,6 +7,9 @@ namespace Automattic\WooCommerce\Admin\Features\PaymentGatewaySuggestions;
 
 defined( 'ABSPATH' ) || exit;
 
+use WC_Gateway_BACS;
+use WC_Gateway_COD;
+
 /**
  * Default Payment Gateways
  */
@@ -32,7 +35,7 @@ class DefaultPaymentGateways {
 		'payubiz'                                         => 6,
 		'square_credit_card'                              => 6,
 		'klarna_payments'                                 => 6,
-		// Klarna Checkout.
+		// Kustom Checkout.
 		'kco'                                             => 6,
 		'paystack'                                        => 6,
 		'eway'                                            => 7,
@@ -176,7 +179,7 @@ class DefaultPaymentGateways {
 				),
 			),
 			array(
-				'id'          => 'bacs',
+				'id'          => WC_Gateway_BACS::ID,
 				'title'       => __( 'Direct bank transfer', 'woocommerce' ),
 				'content'     => __( 'Take payments via bank transfer.', 'woocommerce' ),
 				'image'       => WC_ADMIN_IMAGES_FOLDER_URL . '/onboarding/bacs.svg',
@@ -187,7 +190,7 @@ class DefaultPaymentGateways {
 				'is_offline'  => true,
 			),
 			array(
-				'id'          => 'cod',
+				'id'          => WC_Gateway_COD::ID,
 				'title'       => __( 'Cash on delivery', 'woocommerce' ),
 				'content'     => __( 'Take payments in cash upon delivery.', 'woocommerce' ),
 				'image'       => WC_ADMIN_IMAGES_FOLDER_URL . '/onboarding/cod.svg',
@@ -210,10 +213,10 @@ class DefaultPaymentGateways {
 			),
 			array(
 				'id'                  => 'kco',
-				'title'               => __( 'Klarna Checkout', 'woocommerce' ),
+				'title'               => __( 'Kustom Checkout', 'woocommerce' ),
 				'content'             => __( 'Choose the payment that you want, pay now, pay later or slice it. No credit card numbers, no passwords, no worries.', 'woocommerce' ),
-				'image'               => WC_ADMIN_IMAGES_FOLDER_URL . '/klarna-black.png',
-				'image_72x72'         => WC_ADMIN_IMAGES_FOLDER_URL . '/payment_methods/72x72/klarna.png',
+				'image'               => WC_ADMIN_IMAGES_FOLDER_URL . '/onboarding/icons/kustom-checkout.svg',
+				'image_72x72'         => WC_ADMIN_IMAGES_FOLDER_URL . '/onboarding/icons/kustom-checkout.svg',
 				'plugins'             => array( 'klarna-checkout-for-woocommerce' ),
 				'is_visible'          => array(
 					self::get_rules_for_countries(

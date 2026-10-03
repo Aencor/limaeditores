@@ -6,6 +6,8 @@
  * @version  3.1.0
  */
 
+use Automattic\WooCommerce\Enums\ProductStatus;
+use Automattic\WooCommerce\Enums\ProductType;
 use Automattic\WooCommerce\Utilities\NumberUtil;
 
 if ( ! defined( 'ABSPATH' ) ) {
@@ -181,13 +183,27 @@ abstract class WC_Product_Importer implements WC_Importer_Interface {
 
 			try {
 				// Prevent getting "variation_invalid_id" error message from Variation Data Store.
-				if ( 'variation' === $data['type'] ) {
+				if ( ProductType::VARIATION === $data['type'] ) {
+					$was_variation = $id && 'product_variation' === get_post_type( $id );
+
 					$id = wp_update_post(
 						array(
 							'ID'        => $id,
 							'post_type' => 'product_variation',
 						)
 					);
+
+					// A placeholder created for this row by parse_id_field() is a
+					// simple product, so the product data store may have assigned it
+					// the default product category. Variations must not carry
+					// product_cat/product_tag terms, and WordPress does not clear
+					// them when the post type changes, so remove them here — but
+					// only when the post was just converted into a variation.
+					// Pre-existing variations (e.g. re-imports with "update
+					// existing" enabled) must keep any terms attached to them.
+					if ( $id && ! is_wp_error( $id ) && ! $was_variation ) {
+						wp_delete_object_term_relationships( $id, array( 'product_cat', 'product_tag' ) );
+					}
 				}
 
 				$product = wc_get_product_object( $data['type'], $id );
@@ -209,7 +225,7 @@ abstract class WC_Product_Importer implements WC_Importer_Interface {
 				);
 			}
 		} else {
-			$product = wc_get_product_object( 'simple', $id );
+			$product = wc_get_product_object( ProductType::SIMPLE, $id );
 		}
 
 		return apply_filters( 'woocommerce_product_import_get_product_object', $product, $data );
@@ -247,11 +263,11 @@ abstract class WC_Product_Importer implements WC_Importer_Interface {
 				$updating = true;
 			}
 
-			if ( 'external' === $object->get_type() ) {
+			if ( ProductType::EXTERNAL === $object->get_type() ) {
 				unset( $data['manage_stock'], $data['stock_status'], $data['backorders'], $data['low_stock_amount'] );
 			}
 			$is_variation = false;
-			if ( 'variation' === $object->get_type() ) {
+			if ( ProductType::VARIATION === $object->get_type() ) {
 				if ( isset( $data['status'] ) && -1 === $data['status'] ) {
 					$data['status'] = 0; // Variations cannot be drafts - set to private.
 				}
@@ -259,8 +275,15 @@ abstract class WC_Product_Importer implements WC_Importer_Interface {
 			}
 
 			if ( 'importing' === $object->get_status() ) {
-				$object->set_status( 'publish' );
+				$object->set_status( ProductStatus::PUBLISH );
 				$object->set_slug( '' );
+			}
+
+			// Cost needs to be set explicitly because null is a legal value
+			// but set_props doesn't support nulls.
+			if ( array_key_exists( 'cogs_value', $data ) ) {
+				$object->set_cogs_value( $data['cogs_value'] );
+				unset( $data['cogs_value'] );
 			}
 
 			$result = $object->set_props( array_diff_key( $data, array_flip( array( 'meta_data', 'raw_image_id', 'raw_gallery_image_ids', 'raw_attributes' ) ) ) );
@@ -269,7 +292,7 @@ abstract class WC_Product_Importer implements WC_Importer_Interface {
 				throw new Exception( $result->get_error_message() );
 			}
 
-			if ( 'variation' === $object->get_type() ) {
+			if ( ProductType::VARIATION === $object->get_type() ) {
 				$this->set_variation_data( $object, $data );
 			} else {
 				$this->set_product_data( $object, $data );
@@ -405,7 +428,17 @@ abstract class WC_Product_Importer implements WC_Importer_Interface {
 						$attribute_object->set_position( $position );
 						$attribute_object->set_visible( $is_visible );
 						$attribute_object->set_variation( $is_variation );
-						$attributes[] = $attribute_object;
+
+						/**
+						 * Filter product attribute after initialization.
+						 *
+						 * @since 10.6.0
+						 *
+						 * @param WC_Product_Attribute $attribute_object  The attribute object.
+						 * @param array                $attribute         The attribute data.
+						 * @param WC_Product           $product           The product object.
+						 */
+						$attributes[] = apply_filters( 'woocommerce_product_importer_read_attribute', $attribute_object, $attribute, $product );
 					}
 				} elseif ( isset( $attribute['value'] ) ) {
 					// Check for default attributes and set "is_variation".
@@ -420,14 +453,16 @@ abstract class WC_Product_Importer implements WC_Importer_Interface {
 					$attribute_object->set_position( $position );
 					$attribute_object->set_visible( $is_visible );
 					$attribute_object->set_variation( $is_variation );
-					$attributes[] = $attribute_object;
+
+					// phpcs:ignore WooCommerce.Commenting.CommentHooks.MissingHookComment -- see same filter in the 'if' block.
+					$attributes[] = apply_filters( 'woocommerce_product_importer_read_attribute', $attribute_object, $attribute, $product );
 				}
 			}
 
 			$product->set_attributes( $attributes );
 
 			// Set variable default attributes.
-			if ( $product->is_type( 'variable' ) ) {
+			if ( $product->is_type( ProductType::VARIABLE ) ) {
 				$product->set_default_attributes( $default_attributes );
 			}
 		}
@@ -459,7 +494,7 @@ abstract class WC_Product_Importer implements WC_Importer_Interface {
 		}
 
 		// Stop if parent is a product variation.
-		if ( $parent->is_type( 'variation' ) ) {
+		if ( $parent->is_type( ProductType::VARIATION ) ) {
 			return new WP_Error( 'woocommerce_product_importer_parent_set_as_variation', __( 'Variation cannot be imported: Parent product cannot be a product variation', 'woocommerce' ), array( 'status' => 401 ) );
 		}
 
@@ -470,13 +505,15 @@ abstract class WC_Product_Importer implements WC_Importer_Interface {
 			foreach ( $data['raw_attributes'] as $attribute ) {
 				$attribute_id = 0;
 
-				// Get ID if is a global attribute.
+				// Get ID if is a global attribute. Resolved without creating the attribute, the same way
+				// validate_new_variation_attributes() does: creating it yields a taxonomy key the parent
+				// cannot have, so the row's attribute is dropped and the variation matches every value.
 				if ( ! empty( $attribute['taxonomy'] ) ) {
-					$attribute_id = $this->get_attribute_taxonomy_id( $attribute['name'] );
+					$attribute_id = $this->get_existing_attribute_taxonomy_id( $attribute['name'] );
 				}
 
 				if ( $attribute_id ) {
-					$attribute_name = wc_attribute_taxonomy_name_by_id( $attribute_id );
+					$attribute_name = sanitize_title( wc_attribute_taxonomy_name_by_id( $attribute_id ) );
 				} else {
 					$attribute_name = sanitize_title( $attribute['name'] );
 				}
@@ -490,7 +527,8 @@ abstract class WC_Product_Importer implements WC_Importer_Interface {
 
 				if ( $parent_attributes[ $attribute_name ]->is_taxonomy() ) {
 					// If dealing with a taxonomy, we need to get the slug from the name posted to the API.
-					$term = get_term_by( 'name', $attribute_value, $attribute_name );
+					$taxonomy_name = $parent_attributes[ $attribute_name ]->get_name();
+					$term          = get_term_by( 'name', $attribute_value, $taxonomy_name );
 
 					if ( $term && ! is_wp_error( $term ) ) {
 						$attribute_value = $term->slug;
@@ -520,13 +558,13 @@ abstract class WC_Product_Importer implements WC_Importer_Interface {
 		foreach ( $attributes as $attribute ) {
 			$attribute_id = 0;
 
-			// Get ID if is a global attribute.
+			// Get ID if is a global attribute. Resolved without creating it, as in set_variation_data().
 			if ( ! empty( $attribute['taxonomy'] ) ) {
-				$attribute_id = $this->get_attribute_taxonomy_id( $attribute['name'] );
+				$attribute_id = $this->get_existing_attribute_taxonomy_id( $attribute['name'] );
 			}
 
 			if ( $attribute_id ) {
-				$attribute_name = wc_attribute_taxonomy_name_by_id( $attribute_id );
+				$attribute_name = sanitize_title( wc_attribute_taxonomy_name_by_id( $attribute_id ) );
 			} else {
 				$attribute_name = sanitize_title( $attribute['name'] );
 			}
@@ -643,6 +681,35 @@ abstract class WC_Product_Importer implements WC_Importer_Interface {
 	}
 
 	/**
+	 * Get the taxonomy name of a global attribute as written in the imported data.
+	 *
+	 * @since 11.1.0
+	 *
+	 * @param  string $raw_name Attribute name or label.
+	 * @return string
+	 */
+	protected function get_attribute_taxonomy_name_from_raw_name( $raw_name ) {
+		// These are exported as labels, so convert the label to a name if possible first.
+		$attribute_labels = wp_list_pluck( wc_get_attribute_taxonomies(), 'attribute_label', 'attribute_name' );
+		$attribute_name   = array_search( $raw_name, $attribute_labels, true );
+
+		// Cast because a numeric attribute name is returned as an integer array key by array_search().
+		return $attribute_name ? (string) $attribute_name : wc_sanitize_taxonomy_name( $raw_name );
+	}
+
+	/**
+	 * Get the ID of an existing global attribute taxonomy, without creating it when it is missing.
+	 *
+	 * @since 11.1.0
+	 *
+	 * @param  string $raw_name Attribute name or label.
+	 * @return int Attribute taxonomy ID, or 0 when no such global attribute exists.
+	 */
+	protected function get_existing_attribute_taxonomy_id( $raw_name ) {
+		return (int) wc_attribute_taxonomy_id_by_name( $this->get_attribute_taxonomy_name_from_raw_name( $raw_name ) );
+	}
+
+	/**
 	 * Get attribute taxonomy ID from the imported data.
 	 * If does not exists register a new attribute.
 	 *
@@ -653,15 +720,8 @@ abstract class WC_Product_Importer implements WC_Importer_Interface {
 	public function get_attribute_taxonomy_id( $raw_name ) {
 		global $wpdb, $wc_product_attributes;
 
-		// These are exported as labels, so convert the label to a name if possible first.
-		$attribute_labels = wp_list_pluck( wc_get_attribute_taxonomies(), 'attribute_label', 'attribute_name' );
-		$attribute_name   = array_search( $raw_name, $attribute_labels, true );
-
-		if ( ! $attribute_name ) {
-			$attribute_name = wc_sanitize_taxonomy_name( $raw_name );
-		}
-
-		$attribute_id = wc_attribute_taxonomy_id_by_name( $attribute_name );
+		$attribute_name = $this->get_attribute_taxonomy_name_from_raw_name( $raw_name );
+		$attribute_id   = $this->get_existing_attribute_taxonomy_id( $raw_name );
 
 		// Get the ID from the name.
 		if ( $attribute_id ) {
@@ -812,5 +872,4 @@ abstract class WC_Product_Importer implements WC_Importer_Interface {
 
 		return $value;
 	}
-
 }

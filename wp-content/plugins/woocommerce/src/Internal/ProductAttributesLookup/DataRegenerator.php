@@ -5,7 +5,6 @@
 
 namespace Automattic\WooCommerce\Internal\ProductAttributesLookup;
 
-use Automattic\WooCommerce\Internal\Traits\AccessiblePrivateMethods;
 use Automattic\WooCommerce\Internal\Utilities\DatabaseUtil;
 
 defined( 'ABSPATH' ) || exit;
@@ -29,8 +28,6 @@ defined( 'ABSPATH' ) || exit;
  * and another one for enabling or disabling the actual lookup table usage.
  */
 class DataRegenerator {
-
-	use AccessiblePrivateMethods;
 
 	public const PRODUCTS_PER_GENERATION_STEP = 100;
 
@@ -63,9 +60,9 @@ class DataRegenerator {
 
 		$this->lookup_table_name = $wpdb->prefix . 'wc_product_attributes_lookup';
 
-		self::add_filter( 'woocommerce_debug_tools', array( $this, 'add_initiate_regeneration_entry_to_tools_array' ), 1, 999 );
-		self::add_action( 'woocommerce_run_product_attribute_lookup_regeneration_callback', array( $this, 'run_regeneration_step_callback' ) );
-		self::add_action( 'woocommerce_installed', array( $this, 'run_woocommerce_installed_callback' ) );
+		add_filter( 'woocommerce_debug_tools', array( $this, 'add_initiate_regeneration_entry_to_tools_array' ), 1, 999 );
+		add_action( 'woocommerce_run_product_attribute_lookup_regeneration_callback', array( $this, 'run_regeneration_step_callback' ) );
+		add_action( 'woocommerce_installed', array( $this, 'run_woocommerce_installed_callback' ) );
 	}
 
 	/**
@@ -194,8 +191,10 @@ class DataRegenerator {
 	/**
 	 * Action scheduler callback, performs one regeneration step and then
 	 * schedules the next step if necessary.
+	 *
+	 * @internal For exclusive usage of WooCommerce core, backwards compatibility not guaranteed.
 	 */
-	private function run_regeneration_step_callback() {
+	public function run_regeneration_step_callback() {
 		if ( ! $this->data_store->regeneration_is_in_progress() ) {
 			// No regeneration in progress at this point means that the regeneration process
 			// was manually aborted via deleting the 'woocommerce_attribute_lookup_regeneration_in_progress' option.
@@ -289,8 +288,10 @@ class DataRegenerator {
 	 *
 	 * @param array $tools_array The tool definitions array that is passed ro the woocommerce_debug_tools filter.
 	 * @return array The tools array with the entry added.
+	 *
+	 * @internal For exclusive usage of WooCommerce core, backwards compatibility not guaranteed.
 	 */
-	private function add_initiate_regeneration_entry_to_tools_array( array $tools_array ) {
+	public function add_initiate_regeneration_entry_to_tools_array( array $tools_array ) {
 		if ( ! $this->data_store->check_lookup_table_exists() ) {
 			return $tools_array;
 		}
@@ -334,7 +335,7 @@ class DataRegenerator {
 				'desc'             => __( 'This tool will abort the regenerate product attributes lookup table regeneration. After this is done the process can be either started over, or resumed to continue where it stopped.', 'woocommerce' ),
 				'requires_refresh' => true,
 				'callback'         => function () {
-					$this->abort_regeneration( true );
+					$this->abort_regeneration( false );
 					return __( 'Product attributes lookup table regeneration process has been aborted.', 'woocommerce' );
 				},
 				'button'           => __( 'Abort', 'woocommerce' ),
@@ -352,7 +353,7 @@ class DataRegenerator {
 					),
 				'requires_refresh' => true,
 				'callback'         => function () {
-					$this->resume_regeneration( true );
+					$this->resume_regeneration( false );
 					return __( 'Product attributes lookup table regeneration process has been resumed.', 'woocommerce' );
 				},
 				'button'           => __( 'Resume', 'woocommerce' ),
@@ -364,13 +365,14 @@ class DataRegenerator {
 	}
 
 	/**
-	 * Callback to initiate the regeneration process from the Status - Tools page.
+	 * Callback to initiate the regeneration process when the tool is run.
+	 *
+	 * Runs both from the Tools admin page and from the REST API. Authorization is
+	 * enforced by the caller (nonce for the admin page, capability check for the REST endpoint).
 	 *
 	 * @throws \Exception The regeneration is already in progress.
 	 */
 	private function initiate_regeneration_from_tools_page() {
-		$this->verify_tool_execution_nonce();
-
 		//phpcs:disable WordPress.Security.NonceVerification.Recommended
 		if ( isset( $_REQUEST['regenerate_product_attribute_lookup_data_product_id'] ) ) {
 			$product_id = (int) $_REQUEST['regenerate_product_attribute_lookup_data_product_id'];
@@ -532,7 +534,9 @@ class DataRegenerator {
  is_variation_attribute tinyint(1) NOT NULL,
  in_stock tinyint(1) NOT NULL,
  INDEX is_variation_attribute_term_id (is_variation_attribute, term_id),
- PRIMARY KEY  ( `product_or_parent_id`, `term_id`, `product_id`, `taxonomy` )
+ INDEX taxonomy_term_id_in_stock_product_or_parent_id (taxonomy, term_id, in_stock, product_or_parent_id),
+ PRIMARY KEY  ( `product_or_parent_id`, `term_id`, `product_id`, `taxonomy` ),
+ KEY product_id (product_id)
 ) $collate;";
 	}
 
@@ -558,8 +562,10 @@ class DataRegenerator {
 
 	/**
 	 * Run additional setup needed after a WooCommerce install or update finishes.
+	 *
+	 * @internal For exclusive usage of WooCommerce core, backwards compatibility not guaranteed.
 	 */
-	private function run_woocommerce_installed_callback() {
+	public function run_woocommerce_installed_callback() {
 		// The table must exist at this point (created via dbDelta), but we check just in case.
 		if ( ! $this->data_store->check_lookup_table_exists() ) {
 			return;

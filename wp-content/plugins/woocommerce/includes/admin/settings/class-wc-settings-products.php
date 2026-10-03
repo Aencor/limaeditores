@@ -6,6 +6,8 @@
  * @version 2.4.0
  */
 
+use Automattic\WooCommerce\Admin\Settings\SettingsUIPageInterface;
+use Automattic\WooCommerce\Internal\Admin\Settings\SettingsUIPages\ProductsSettingsPageAdapter;
 use Automattic\WooCommerce\Utilities\I18nUtil;
 
 if ( ! defined( 'ABSPATH' ) ) {
@@ -32,6 +34,23 @@ class WC_Settings_Products extends WC_Settings_Page {
 	}
 
 	/**
+	 * Setting page icon.
+	 *
+	 * @var string
+	 */
+	public $icon = 'box';
+
+	/**
+	 * Get the settings UI page adapter for this settings page.
+	 *
+	 * @since 10.9.0
+	 * @return SettingsUIPageInterface|null
+	 */
+	public function get_settings_ui_page(): ?SettingsUIPageInterface {
+		return new ProductsSettingsPageAdapter( $this );
+	}
+
+	/**
 	 * Get own sections.
 	 *
 	 * @return array
@@ -50,6 +69,10 @@ class WC_Settings_Products extends WC_Settings_Page {
 	 * @return array
 	 */
 	protected function get_settings_for_default_section() {
+		$locale_info            = include WC()->plugin_path() . '/i18n/locale-info.php';
+		$default_weight_unit    = $locale_info['US']['weight_unit'];
+		$default_dimension_unit = $locale_info['US']['dimension_unit'];
+
 		$settings =
 			array(
 				array(
@@ -111,7 +134,7 @@ class WC_Settings_Products extends WC_Settings_Page {
 					'id'       => 'woocommerce_weight_unit',
 					'class'    => 'wc-enhanced-select',
 					'css'      => 'min-width:300px;',
-					'default'  => 'kg',
+					'default'  => $default_weight_unit,
 					'type'     => 'select',
 					'options'  => array(
 						'kg'  => I18nUtil::get_weight_unit_label( 'kg' ),
@@ -128,7 +151,7 @@ class WC_Settings_Products extends WC_Settings_Page {
 					'id'       => 'woocommerce_dimension_unit',
 					'class'    => 'wc-enhanced-select',
 					'css'      => 'min-width:300px;',
-					'default'  => 'cm',
+					'default'  => $default_dimension_unit,
 					'type'     => 'select',
 					'options'  => array(
 						'm'  => I18nUtil::get_dimensions_unit_label( 'm' ),
@@ -264,6 +287,16 @@ class WC_Settings_Products extends WC_Settings_Page {
 				array(
 					'desc'          => __( 'Enable out of stock notifications', 'woocommerce' ),
 					'id'            => 'woocommerce_notify_no_stock',
+					'default'       => 'yes',
+					'type'          => 'checkbox',
+					'checkboxgroup' => '',
+					'autoload'      => false,
+					'class'         => 'manage_stock_field',
+				),
+
+				array(
+					'desc'          => __( 'Enable backorder notifications', 'woocommerce' ),
+					'id'            => 'woocommerce_notify_backorder',
 					'default'       => 'yes',
 					'type'          => 'checkbox',
 					'checkboxgroup' => 'end',
@@ -479,7 +512,7 @@ class WC_Settings_Products extends WC_Settings_Page {
 		 * Product->Inventory has a setting `Out of stock visibility`.
 		 * Because of this, we need to recount the terms to keep them in-sync.
 		 */
-		WC()->call_function( 'wc_recount_all_terms' );
+		WC()->call_function( 'wc_recount_all_terms', false );
 
 		$this->do_update_options_action();
 	}
