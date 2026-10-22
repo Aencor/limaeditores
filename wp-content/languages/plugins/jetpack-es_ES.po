@@ -2,7 +2,7 @@
 # This file is distributed under the same license as the Plugins - Jetpack &#8211; WP Security, Backup, Speed, &amp; Growth - Stable (latest release) package.
 msgid ""
 msgstr ""
-"PO-Revision-Date: 2026-10-06 20:51:40+0000\n"
+"PO-Revision-Date: 2026-10-20 19:42:35+0000\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -10,6 +10,80 @@ msgstr ""
 "X-Generator: GlotPress/4.1.0\n"
 "Language: es\n"
 "Project-Id-Version: Plugins - Jetpack &#8211; WP Security, Backup, Speed, &amp; Growth - Stable (latest release)\n"
+
+#: jetpack_vendor/automattic/jetpack-connection/src/class-site-health.php:136
+msgid "WordPress.com Connection"
+msgstr "Conexión con WordPress.com"
+
+#: _inc/blocks/zoom-scheduler/block.json
+msgctxt "block keyword"
+msgid "appointment"
+msgstr "cita"
+
+#: _inc/blocks/zoom-scheduler/block.json
+msgctxt "block keyword"
+msgid "scheduling"
+msgstr "programación"
+
+#: _inc/blocks/zoom-scheduler/block.json
+msgctxt "block description"
+msgid "Embed a Zoom Scheduler booking page."
+msgstr "Incrusta una página de reservas de Zoom Scheduler."
+
+#: _inc/blocks/zoom-scheduler/block.json
+msgctxt "block title"
+msgid "Zoom Scheduler"
+msgstr "Programador de zoom"
+
+#: jetpack_vendor/automattic/jetpack-videopress/build/block-editor/blocks/latest-videos-playlist/block.json
+msgctxt "block keyword"
+msgid "dynamic"
+msgstr "dinámico"
+
+#: jetpack_vendor/automattic/jetpack-videopress/build/block-editor/blocks/latest-videos-playlist/block.json
+msgctxt "block keyword"
+msgid "recent"
+msgstr "reciente"
+
+#: jetpack_vendor/automattic/jetpack-videopress/build/block-editor/blocks/latest-videos-playlist/block.json
+msgctxt "block keyword"
+msgid "newest"
+msgstr "más reciente"
+
+#: jetpack_vendor/automattic/jetpack-videopress/build/block-editor/blocks/latest-videos-playlist/block.json
+msgctxt "block keyword"
+msgid "latest"
+msgstr "últimos"
+
+#: jetpack_vendor/automattic/jetpack-videopress/build/block-editor/blocks/latest-videos-playlist/block.json
+msgctxt "block description"
+msgid "VideoPress powered list of your latest videos in a single customizable player. New uploads show up automatically."
+msgstr "Lista impulsada por VideoPress con tus últimos vídeos en un único reproductor personalizable. Las subidas nuevas aparecen automáticamente."
+
+#: jetpack_vendor/automattic/jetpack-videopress/build/block-editor/blocks/latest-videos-playlist/block.json
+msgctxt "block title"
+msgid "Latest Videos Playlist"
+msgstr "Lista de reproducción de los últimos vídeos"
+
+#: jetpack_vendor/automattic/jetpack-videopress/build/block-editor/blocks/all-playlists/block.json
+msgctxt "block keyword"
+msgid "collection"
+msgstr "colección"
+
+#: jetpack_vendor/automattic/jetpack-videopress/build/block-editor/blocks/all-playlists/block.json
+msgctxt "block keyword"
+msgid "playlists"
+msgstr "listas de reproducción"
+
+#: jetpack_vendor/automattic/jetpack-videopress/build/block-editor/blocks/all-playlists/block.json
+msgctxt "block description"
+msgid "Every playlist on the site, paginated, under a heading you can edit."
+msgstr "Todas las listas de reproducción del sitio, paginadas, bajo un encabezado que puedes editar."
+
+#: jetpack_vendor/automattic/jetpack-videopress/build/block-editor/blocks/all-playlists/block.json
+msgctxt "block title"
+msgid "All Playlists"
+msgstr "Todas las listas de reproducción"
 
 #: jetpack_vendor/automattic/jetpack-paypal-payments/dist/paypal-payment-buttons/block.json
 #: jetpack_vendor/automattic/jetpack-paypal-payments/src/paypal-payment-buttons/block.json
@@ -29,10 +103,269 @@ msgctxt "block description"
 msgid "Accept payments via PayPal. Create a buy button directly in the editor — no code required."
 msgstr "Acepta pagos con PayPal Crea un botón de compra directamente en el editor, sin necesidad de código."
 
+#: _inc/lib/core-api/class.jetpack-core-api-module-endpoints.php:840
+msgid "The site verification code is invalid."
+msgstr "El código de verificación del sitio no es válido."
+
+#: _inc/lib/core-api/class.jetpack-core-api-module-endpoints.php:170
+msgid "The requested Jetpack module is enabled by your host or site administrator, so it stays on."
+msgstr "El módulo solicitado de Jetpack está activado por el proveedor de alojamiento o el administrador del sitio, por lo que permanece activado."
+
+#: _inc/lib/core-api/class.jetpack-core-api-module-endpoints.php:98
+msgid "The requested Jetpack module is disabled by your host or site administrator, so it stays off."
+msgstr "El módulo solicitado de Jetpack lo ha desactivado el proveedor de alojamiento o el administrador del sitio, por lo que no se activa."
+
+#. Translators: Placeholder is a verification string used to verify a service
+#. like Google Webmaster Console.
+#: _inc/lib/class.core-rest-api-endpoints.php:2847
+msgid "%s must be a valid verification code or verification tag."
+msgstr "%s debe ser un código de verificación o una etiqueta de verificación válidos."
+
+#: _inc/lib/class.core-rest-api-endpoints.php:2567
+msgid "Hide the share menu on every video, overriding each video’s own setting"
+msgstr "Ocultar el menú de compartir en cada vídeo, sobrescribiendo el propio ajuste de cada vídeo"
+
+#: _inc/lib/admin-pages/class-jetpack-ai-page.php:645
+msgid "Jetpack AI could not be loaded because its assets are missing. Reinstalling or updating the plugin usually fixes this. If it keeps happening, contact your site administrator or host."
+msgstr "No se ha podido cargar Jetpack AI porque faltan sus recursos. Normalmente, reinstalar o actualizar el plugin soluciona el problema. Si el problema persiste, ponte en contacto con el administrador o con el proveedor de hosting de tu sitio."
+
 #: modules/subscriptions/email-design-editor/class-jetpack-email-design-editor.php:99
 #: modules/subscriptions/email-design-editor/class-jetpack-email-design-editor.php:100
 msgid "Email Design"
 msgstr "Diseño de correo electrónico"
+
+#: modules/module-headings.php:36
+msgctxt "Module Description"
+msgid "Browse your backups and restore your site right from your dashboard."
+msgstr "Explora tus copias de seguridad y restaura tu sitio directamente desde tu escritorio."
+
+#: modules/module-headings.php:35
+msgctxt "Module Name"
+msgid "Backup"
+msgstr "Copia de seguridad"
+
+#: modules/module-headings.php:26
+msgctxt "Module Description"
+msgid "A record of every event on your site, so you can see what happened and roll back when something goes wrong."
+msgstr "Un registro todos los eventos de tu sitio, para que puedas ver lo que ha pasado y volver atrás cuando algo va mal."
+
+#: modules/module-headings.php:25
+msgctxt "Module Name"
+msgid "Activity Log"
+msgstr "Registro de actividad"
+
+#: modules/comments/admin.php:168
+#: _inc/lib/class.core-rest-api-endpoints.php:1733
+msgid "Enable blocks in comments"
+msgstr "Activar bloques en comentarios"
+
+#: modules/comments/admin.php:147
+msgid "Allow Blocks"
+msgstr "Permitir bloques"
+
+#: json-endpoints/class.wpcom-json-api-site-settings-endpoint.php:1246
+msgid "Invalid site verification code. Enter a verification code or verification tag."
+msgstr "El código de verificación del sitio no es válido. Introduce un código o una etiqueta de verificación."
+
+#: jetpack_vendor/automattic/jetpack-videopress/src/class-wpcom-rest-api-v2-endpoint-videopress.php:175
+#: jetpack_vendor/automattic/jetpack-videopress/build/block-editor/blocks/video/index.js:11
+msgid "This video could not be found in the Media Library. Restore it from the trash, if available, and try again."
+msgstr "No se ha podido encontrar el vídeo en la biblioteca de medios. Restáuralo de la papelera, si está disponible, e inténtalo de nuevo."
+
+#: jetpack_vendor/automattic/jetpack-videopress/src/class-wpcom-rest-api-v2-endpoint-videopress-edits.php:253
+msgid "The video editing service returned an invalid response."
+msgstr "El servicio de edición de vídeo ha devuelto una respuesta no válida."
+
+#: jetpack_vendor/automattic/jetpack-videopress/src/class-wpcom-rest-api-v2-endpoint-videopress-edits.php:60
+msgid "Trim and cut operations on the original video timeline."
+msgstr "Recortar y cortar operaciones en la línea de tiempo del vídeo original."
+
+#: jetpack_vendor/automattic/jetpack-videopress/src/class-wpcom-rest-api-v2-endpoint-videopress-edits.php:54
+msgid "The revision the edits are based on."
+msgstr "La revisión en la que se basan las modificaciones."
+
+#: jetpack_vendor/automattic/jetpack-videopress/src/class-videopress-rest-api-v1-settings.php:69
+#: jetpack_vendor/automattic/jetpack-videopress/src/class-wpcom-rest-api-v2-endpoint-videopress.php:295
+msgid "If the share menu should be hidden on every video, overriding each video’s own setting"
+msgstr "Si el menú de compartir debe estar oculto en cada vídeo, sobrescribiendo el propio ajuste de cada vídeo"
+
+#: jetpack_vendor/automattic/jetpack-videopress/src/class-videopress-rest-api-v1-settings.php:65
+#: jetpack_vendor/automattic/jetpack-videopress/src/class-wpcom-rest-api-v2-endpoint-videopress.php:291
+msgid "If videos should render an inline player from one shared script instead of one frame per video"
+msgstr "Si los vídeos deben reproducir un reproductor integrado a partir de un script compartido en lugar de un marco por vídeo"
+
+#: jetpack_vendor/automattic/jetpack-videopress/src/class-inline-player.php:441
+msgid "Play video"
+msgstr "Reproducir vídeo"
+
+#. translators: %s is the video title
+#: jetpack_vendor/automattic/jetpack-videopress/src/class-inline-player.php:440
+msgid "Play video: %s"
+msgstr "Reproducir vídeo: %s"
+
+#. translators: %s: number of playlists the button reveals.
+#: jetpack_vendor/automattic/jetpack-videopress/src/class-all-playlists-block.php:566
+msgid "Load %s more"
+msgstr "Cargar %s más"
+
+#: jetpack_vendor/automattic/jetpack-videopress/src/class-all-playlists-block.php:551
+msgid "Playlists pagination"
+msgstr "Paginación de listas de reproducción"
+
+#: jetpack_vendor/automattic/jetpack-videopress/src/class-all-playlists-block.php:484
+msgid "View full playlist →"
+msgstr "Ver lista de reproducción completa &rarr;"
+
+#: jetpack_vendor/automattic/jetpack-videopress/src/class-all-playlists-block.php:478
+msgid "First video is private or was deleted."
+msgstr "El primer vídeo es privado o se ha eliminado."
+
+#: jetpack_vendor/automattic/jetpack-videopress/src/class-all-playlists-block.php:450
+msgid "No poster available"
+msgstr "No hay ningún póster disponible"
+
+#. translators: %s: number of videos in the playlist.
+#: jetpack_vendor/automattic/jetpack-videopress/src/class-all-playlists-block.php:437
+msgid "%s video"
+msgid_plural "%s videos"
+msgstr[0] "%s vídeo"
+msgstr[1] "%s vídeos"
+
+#: jetpack_vendor/automattic/jetpack-videopress/src/class-all-playlists-block.php:420
+msgid "Untitled playlist"
+msgstr "Lista de reproducción sin título"
+
+#: jetpack_vendor/automattic/jetpack-videopress/src/class-all-playlists-block.php:405
+#: jetpack_vendor/automattic/jetpack-videopress/build/block-editor/blocks/all-playlists/index.js:1
+msgid "Playlists"
+msgstr "Listas de reproducción"
+
+#. translators: %s: number of playlists on the site.
+#: jetpack_vendor/automattic/jetpack-videopress/src/class-all-playlists-block.php:349
+msgid "%s playlist"
+msgid_plural "%s playlists"
+msgstr[0] "%s lista de reproducción"
+msgstr[1] "%s listas de reproducción"
+
+#. translators: 1: number of playlists shown. 2: number of playlists on the
+#. site.
+#: jetpack_vendor/automattic/jetpack-videopress/src/class-all-playlists-block.php:341
+#: jetpack_vendor/automattic/jetpack-videopress/src/class-all-playlists-block.php:372
+msgid "Showing %1$s of %2$s"
+msgstr "Se muestra %1$s de %2$s"
+
+#: jetpack_vendor/automattic/jetpack-stats/src/class-settings.php:108
+msgid "Field `roles` must be a non-empty array of role slugs."
+msgstr "El campo `roles` debe ser un array no vacío de slugs de roles."
+
+#. translators: %s: comma-separated list of setting names.
+#: jetpack_vendor/automattic/jetpack-stats/src/class-settings.php:63
+msgid "Unknown Stats settings: %s."
+msgstr "Ajustes de estadísticas desconocidos: %s."
+
+#: jetpack_vendor/automattic/jetpack-stats/src/abilities/class-stats-abilities.php:510
+msgid "Role slugs that can view Stats. Must be non-empty; each added slug must be a registered role. `administrator` is always kept."
+msgstr "Slugs de roles que pueden ver las estadísticas. No debe estar vacío; cada slug añadido debe ser un perfil registrado. Siempre se mantiene «administrador»."
+
+#: jetpack_vendor/automattic/jetpack-stats-admin/src/class-rest-controller.php:865
+#: jetpack_vendor/automattic/jetpack-stats/src/class-settings.php:166
+msgid "The Stats settings could not be saved."
+msgstr "No se ha podido guardar la configuración de estadísticas."
+
+#: jetpack_vendor/automattic/jetpack-sharing-likes/src/settings/class-twitter-site-tag.php:55
+msgid "The Twitter username of the owner of this site’s domain."
+msgstr "El nombre de usuario de Twitter del dueño del dominio de este sitio."
+
+#: jetpack_vendor/automattic/jetpack-sharing-likes/src/settings/class-twitter-site-tag.php:51
+msgid "Twitter Cards"
+msgstr "Tarjetas de Twitter"
+
+#: jetpack_vendor/automattic/jetpack-sharing-likes/src/settings/class-sharing-section.php:125
+msgid "Switch to the Sharing Buttons block"
+msgstr "Cambir al bloque Botones de compartir"
+
+#: jetpack_vendor/automattic/jetpack-sharing-likes/src/settings/class-sharing-section.php:121
+msgid "Legacy sharing buttons cannot be customized on block themes. Use the Sharing Buttons block in your theme’s template instead."
+msgstr "Los botones de compartir heredados no se pueden personalizar en los temas de bloques. Utiliza el bloque Botones para compartir de la plantilla de tu tema."
+
+#: jetpack_vendor/automattic/jetpack-sharing-likes/src/settings/class-sharing-section.php:112
+msgid "Turn on sharing buttons"
+msgstr "Activar los botones de compartir"
+
+#: jetpack_vendor/automattic/jetpack-sharing-likes/src/settings/class-sharing-section.php:104
+msgid "Connect your site to WordPress.com, or enable offline mode, to turn them back on."
+msgstr "Conecta tu sitio a WordPress.com o activa el modo sin conexión para volver a activarlos."
+
+#: jetpack_vendor/automattic/jetpack-sharing-likes/src/settings/class-sharing-section.php:91
+msgid "Sharing buttons are turned off for this site."
+msgstr "Los botones de compartir están desactivados en este sitio."
+
+#: jetpack_vendor/automattic/jetpack-sharing-likes/src/settings/class-sharing-section.php:77
+msgid "Add the Sharing Buttons block to your theme’s template."
+msgstr "Añade el bloque Botones para compartir a la plantilla de tu tema."
+
+#: jetpack_vendor/automattic/jetpack-sharing-likes/src/settings/class-settings-page.php:125
+msgid "Comment Likes could not be switched on or off on this site."
+msgstr "No se han podido activar o desactivar los Me gusta en comentarios en este sitio."
+
+#: jetpack_vendor/automattic/jetpack-sharing-likes/src/settings/class-placement-section.php:169
+msgid "Where sharing buttons appear"
+msgstr "Dónde aparecen los botones para compartir"
+
+#: jetpack_vendor/automattic/jetpack-sharing-likes/src/settings/class-placement-section.php:166
+msgid "Where Comment Likes appear"
+msgstr "Dónde aparecen los Me gusta en comentarios"
+
+#: jetpack_vendor/automattic/jetpack-sharing-likes/src/settings/class-placement-section.php:165
+msgid "Where Like buttons appear"
+msgstr "Dónde aparecen los botones Me gusta"
+
+#: jetpack_vendor/automattic/jetpack-sharing-likes/src/settings/class-placement-section.php:164
+msgid "Where Like buttons and Comment Likes appear"
+msgstr "Dónde aparecen los botones Me gusta y Me gusta en comentarios"
+
+#: jetpack_vendor/automattic/jetpack-sharing-likes/src/settings/class-placement-section.php:163
+msgid "Where sharing buttons and Comment Likes appear"
+msgstr "Dónde aparecen los botones para compartir y los Me gusta en comentarios"
+
+#: jetpack_vendor/automattic/jetpack-sharing-likes/src/settings/class-placement-section.php:162
+msgid "Where sharing and Like buttons appear"
+msgstr "Dónde aparecen los botones de compartir y Me gusta"
+
+#: jetpack_vendor/automattic/jetpack-sharing-likes/src/settings/class-placement-section.php:161
+msgid "Where sharing buttons, Like buttons, and Comment Likes appear"
+msgstr "Dónde aparecen los botones para compartir, los botones Me gusta y los Me gusta en comentarios"
+
+#: jetpack_vendor/automattic/jetpack-sharing-likes/src/settings/class-placement-section.php:78
+msgid "Change where they appear"
+msgstr "Cambiar dónde aparecen"
+
+#. translators: %s: comma-separated list of places, for example "Posts, Pages".
+#: jetpack_vendor/automattic/jetpack-sharing-likes/src/settings/class-placement-section.php:69
+msgid "Comment Likes currently appear on comments on: %s."
+msgstr "Los Me gusta en comentarios aparecen actualmente en los comentarios en: %s."
+
+#. translators: %s: comma-separated list of places, for example "Posts, Pages".
+#: jetpack_vendor/automattic/jetpack-sharing-likes/src/settings/class-placement-section.php:67
+msgid "Like buttons currently appear on: %s."
+msgstr "Los botones Me gusta aparecen actualmente en: %s."
+
+#. translators: %s: comma-separated list of places, for example "Posts, Pages".
+#: jetpack_vendor/automattic/jetpack-sharing-likes/src/settings/class-placement-section.php:65
+msgid "Sharing buttons currently appear on: %s."
+msgstr "Los botones de compartir aparecen actualmente en: %s."
+
+#: jetpack_vendor/automattic/jetpack-sharing-likes/src/settings/class-placement-section.php:59
+msgid "Comment Likes are currently not shown anywhere."
+msgstr "Actualmente, los Me gusta en comentarios no se muestran en ninguna parte."
+
+#: jetpack_vendor/automattic/jetpack-sharing-likes/src/settings/class-placement-section.php:58
+msgid "Like buttons are currently not shown anywhere."
+msgstr "En este momento, los botones Me gusta no se muestran en ninguna parte."
+
+#: jetpack_vendor/automattic/jetpack-sharing-likes/src/settings/class-placement-section.php:57
+msgid "Sharing buttons are currently not shown anywhere."
+msgstr "Actualmente, los botones de compartir no se muestran en ninguna parte."
 
 #: jetpack_vendor/automattic/jetpack-sharing-likes/src/settings/class-likes-section.php:147
 #: build/routes/settings/content.js:442
@@ -41,13 +374,92 @@ msgstr "Diseño de correo electrónico"
 msgid "Switch to the Like block"
 msgstr "Cambiar al bloque Me gusta"
 
+#: jetpack_vendor/automattic/jetpack-sharing-likes/src/settings/class-likes-section.php:143
+msgid "Legacy Like buttons cannot be customized on block themes. Use the Like block in your theme’s template instead."
+msgstr "Los botones Me gusta heredados no se pueden personalizar en los temas de bloques. Utiliza el bloque Me gusta en la plantilla de tu tema."
+
+#: jetpack_vendor/automattic/jetpack-sharing-likes/src/settings/class-likes-section.php:134
+msgid "Turn on Like buttons"
+msgstr "Activar botones de Me gusta"
+
+#: jetpack_vendor/automattic/jetpack-sharing-likes/src/settings/class-likes-section.php:122
+msgid "Like buttons are turned off for this site."
+msgstr "Los botones Me gusta están desactivados en este sitio."
+
+#: jetpack_vendor/automattic/jetpack-sharing-likes/src/settings/class-likes-section.php:111
+msgid "Add the Like block to your theme’s template."
+msgstr "Añade el bloque Me gusta a la plantilla de tu tema."
+
+#: jetpack_vendor/automattic/jetpack-sharing-likes/src/settings/class-likes-section.php:89
+msgid "Like buttons need a connection to WordPress.com. Connect your site to turn them on and choose where they appear."
+msgstr "Los botones Me gusta necesitan una conexión con WordPress.com. Conecta tu sitio para activarlos y elige dónde aparecen."
+
+#: jetpack_vendor/automattic/jetpack-sharing-likes/src/settings/class-likes-section.php:88
+msgid "Like buttons need a connection to WordPress.com, which is unavailable while your site is in offline mode."
+msgstr "Los botones Me gusta necesitan una conexión con WordPress.com, que no está disponible mientras tu sitio esté en modo sin conexión."
+
+#: jetpack_vendor/automattic/jetpack-sharing-likes/src/settings/class-extras-section.php:30
+msgid "Other settings"
+msgstr "Otros ajustes"
+
+#: jetpack_vendor/automattic/jetpack-sharing-likes/src/settings/class-comment-likes-section.php:71
+msgid "Allow readers to like individual comments"
+msgstr "Permitir a los lectores dar Me gusta en comentarios individuales."
+
+#: jetpack_vendor/automattic/jetpack-sharing-likes/src/settings/class-comment-likes-section.php:38
+msgid "Comment Likes need a connection to WordPress.com. Connect your site to turn them on."
+msgstr "Los Me gusta en comentarios necesitan una conexión con WordPress.com. Conecta tu sitio para activarlos."
+
+#: jetpack_vendor/automattic/jetpack-sharing-likes/src/settings/class-comment-likes-section.php:37
+msgid "Comment Likes need a connection to WordPress.com, which is unavailable while your site is in offline mode."
+msgstr "Los Me gusta en comentarios necesitan una conexión con WordPress.com, que no está disponible mientras tu sitio esté en modo sin conexión."
+
+#: jetpack_vendor/automattic/jetpack-sharing-likes/src/settings/class-comment-likes-section.php:30
+msgctxt "Settings header"
+msgid "Comment Likes"
+msgstr "Me gusta en comentarios"
+
+#: jetpack_vendor/automattic/jetpack-search/src/class-rest-controller.php:447
+#: jetpack_vendor/automattic/jetpack-search/build/routes/dashboard/content.js:168
+msgid "Site Chat requires a paid Jetpack Search plan."
+msgstr "El chat del sitio requiere un plan de pago de Jetpack Search."
+
 #: jetpack_vendor/automattic/jetpack-publicize/src/rest-api/class-connections-controller.php:146
 msgid "The updated Publicize connections, keyed by service name."
 msgstr "Se han actualizado las conexiones de Difundir, introducidas por el nombre del servicio."
 
+#. translators: 1: Widget action id. 2: Declared action href.
+#: jetpack_vendor/automattic/jetpack-premium-analytics/src/widget-types.php:219
+msgid "Dropped widget action \"%1$s\": href \"%2$s\" is not an allowed URL."
+msgstr "Se ha descartado la acción del widget «%1$s»: href «%2$s«» no es una URL permitida."
+
 #: jetpack_vendor/automattic/jetpack-premium-analytics/src/default-dashboard-sections.php:443
 msgid "Site insights"
 msgstr "Detalles del sitio"
+
+#: jetpack_vendor/automattic/jetpack-premium-analytics/src/class-widget-type-registry.php:312
+msgid "Widget types are read after init. A read before it does not hydrate the registry and answers only what was registered directly."
+msgstr "Los tipos de widgets se leen después del inicio. Una lectura anterior no hidrata el registro y responde solo a lo que se registró directamente."
+
+#. translators: 1: Widget type name. 2: Former name.
+#: jetpack_vendor/automattic/jetpack-premium-analytics/src/class-widget-type-registry.php:203
+msgid "Widget type \"%1$s\" cannot claim \"%2$s\" as a former name: it must be a namespaced lowercase name that no registered widget type holds."
+msgstr "El tipo de widget «%1$s» no puede reclamar «%2$s» como nombre anterior: debe ser un nombre en minúsculas con espacio de nombres que no contenga ningún tipo de widget registrado."
+
+#. translators: 1: Widget type name. 2: Widget type name.
+#: jetpack_vendor/automattic/jetpack-premium-analytics/src/class-widget-type-registry.php:124
+msgid "Widget type \"%1$s\" is a former name of \"%2$s\"."
+msgstr "El tipo de widget «%1$s» es un nombre anterior de «%2$s»."
+
+#: jetpack_vendor/automattic/jetpack-premium-analytics/src/class-dashboard-section-registry.php:235
+msgid "Dashboard sections are read after init. A read before it does not hydrate the registry and answers only what was registered directly."
+msgstr "Las secciones del escritorio se leen después de iniciarse. Una lectura anterior no hidrata el registro y responde solo a lo que se registró directamente."
+
+#. translators: 1: Dashboard name. 2: Section slug. 3: ID of the section
+#. already using the slug.
+#: jetpack_vendor/automattic/jetpack-premium-analytics/src/class-dashboard-section-registry.php:98
+msgid "Dashboard section slug \"%2$s\" is already used on dashboard \"%1$s\" by \"%3$s\"."
+msgstr "El slug de la sección «%2$s» del escritorio ya se utiliza en el escritorio «%1$s» por «%3$s»."
 
 #: jetpack_vendor/automattic/jetpack-paypal-payments/src/paypal-payment-buttons/class-paypal-rest-controller.php:1103
 msgid "Line items for the payment resource."
@@ -131,9 +543,17 @@ msgstr "El parámetro %s debe ser una cadena no vacía."
 msgid "You do not have permission to manage PayPal settings."
 msgstr "No tienes permiso para gestionar los ajustes de PayPal."
 
+#: jetpack_vendor/automattic/jetpack-paypal-payments/src/paypal-payment-buttons/class-paypal-rest-controller.php:308
+msgid "One post to leave out of the embed count."
+msgstr "Una entrada que se debe excluir del recuento de contenido incrustado."
+
 #: jetpack_vendor/automattic/jetpack-paypal-payments/src/paypal-payment-buttons/class-paypal-rest-controller.php:303
 msgid "Keep the payment link when another published post still embeds it."
 msgstr "Conserva el enlace de pago cuando otra entrada publicada lo inserta."
+
+#: jetpack_vendor/automattic/jetpack-paypal-payments/src/paypal-payment-buttons/class-paypal-rest-controller.php:282
+msgid "Read the payment back after updating it, for the SDK snippets a stacked block needs."
+msgstr "Lee el pago de vuelta después de actualizarlo, para los fragmentos de SDK que necesita un bloque apilado."
 
 #: jetpack_vendor/automattic/jetpack-paypal-payments/src/paypal-payment-buttons/class-paypal-rest-controller.php:246
 msgid "Cursor from the previous page's next link."
@@ -142,6 +562,10 @@ msgstr "Cursor del siguiente enlace de la página anterior."
 #: jetpack_vendor/automattic/jetpack-paypal-payments/src/paypal-payment-buttons/class-paypal-rest-controller.php:239
 msgid "Payment resources per page."
 msgstr "Recursos de pago por página."
+
+#: jetpack_vendor/automattic/jetpack-paypal-payments/src/paypal-payment-buttons/class-paypal-rest-controller.php:149
+msgid "Whether this is the check made when the merchant closes PayPal, where no seller yet means they cancelled."
+msgstr "Si esta es la comprobación que se hace cuando el vendedor cierra PayPal, en cuyo caso, si aún no hay ningún vendedor, significa que lo ha cancelado."
 
 #: jetpack_vendor/automattic/jetpack-paypal-payments/src/paypal-payment-buttons/class-paypal-rest-controller.php:143
 msgid "Merchant PayPal payer ID from onboarding callback."
@@ -165,6 +589,14 @@ msgstr "Secreto de cliente de PayPal OAuth."
 msgid "PayPal OAuth client ID."
 msgstr "ID de cliente de PayPal OAuth."
 
+#: jetpack_vendor/automattic/jetpack-paypal-payments/src/paypal-payment-buttons/class-paypal-platform-client.php:196
+msgid "WordPress.com could not reach PayPal on your behalf. Please try again."
+msgstr "WordPress.com no ha podido contactar con PayPal en tu nombre. Inténtalo de nuevo."
+
+#: jetpack_vendor/automattic/jetpack-paypal-payments/src/paypal-payment-buttons/class-paypal-platform-client.php:86
+msgid "WordPress.com returned an unexpected answer from PayPal."
+msgstr "WordPress.com ha devuelto una respuesta inesperada de PayPal."
+
 #: jetpack_vendor/automattic/jetpack-paypal-payments/src/paypal-payment-buttons/class-paypal-payment-links-list-table.php:337
 msgid "Create your first payment link by adding a PayPal Payment Buttons block in the editor."
 msgstr "Crea tu primer enlace de pago añadiendo un bloque Botones de pago de PayPal en el editor."
@@ -181,9 +613,28 @@ msgstr "Ver en PayPal"
 msgid "View Details"
 msgstr "Ver detalles"
 
+#: jetpack_vendor/automattic/jetpack-paypal-payments/src/paypal-payment-buttons/class-paypal-payment-buttons.php:1687
+#: jetpack_vendor/automattic/jetpack-paypal-payments/dist/paypal-payment-buttons/editor.js:5
+msgid "PayPal buttons preview"
+msgstr "Vista previa de los botones de PayPal"
+
+#: jetpack_vendor/automattic/jetpack-paypal-payments/src/paypal-payment-buttons/class-paypal-payment-buttons.php:1631
+msgid "You can close this window and return to the editor."
+msgstr "Puedes cerrar esta ventana y volver al editor."
+
+#: jetpack_vendor/automattic/jetpack-paypal-payments/src/paypal-payment-buttons/class-paypal-payment-buttons.php:1630
+msgid "Returning to your site"
+msgstr "Volviendo a tu sitio"
+
 #: jetpack_vendor/automattic/jetpack-paypal-payments/src/paypal-payment-buttons/class-paypal-payment-buttons.php:1253
 msgid "PayPal (opens in a new tab)"
 msgstr "PayPal (se abre en una pestaña nueva)"
+
+#. translators: %s: the PayPal wordmark
+#: jetpack_vendor/automattic/jetpack-paypal-payments/src/paypal-payment-buttons/class-paypal-payment-buttons.php:1220
+#: jetpack_vendor/automattic/jetpack-paypal-payments/dist/paypal-payment-buttons/editor.js:5
+msgid "Powered by %s"
+msgstr "Ofrecido por %s"
 
 #: jetpack_vendor/automattic/jetpack-paypal-payments/src/paypal-payment-buttons/class-paypal-payment-buttons.php:1200
 #: jetpack_vendor/automattic/jetpack-paypal-payments/dist/paypal-payment-buttons/editor.js:4
@@ -205,6 +656,20 @@ msgstr "Desde %s"
 msgid "Buy now"
 msgstr "Comprar ahora"
 
+#: jetpack_vendor/automattic/jetpack-paypal-payments/src/paypal-payment-buttons/class-paypal-partner-onboarding.php:532
+msgid "PayPal didn't grant the permissions this block needs. Connect again and approve all permissions."
+msgstr "PayPal no ha concedido los permisos que necesita este bloque. Conéctate de nuevo y acepta todos los permisos."
+
+#. translators: %s: URL of the PayPal website.
+#: jetpack_vendor/automattic/jetpack-paypal-payments/src/paypal-payment-buttons/class-paypal-partner-onboarding.php:518
+msgid "Attention: You currently cannot receive payments due to restriction on your PayPal account. Please reach out to PayPal Customer Support or connect to %s for more information."
+msgstr "Atención: actualmente no puedes recibir pagos debido a restricciones en tu cuenta de PayPal. Ponte en contacto con el servicio de atención al cliente de PayPal o conéctate a %s para obtener más información."
+
+#. translators: %s: URL of the PayPal business profile settings page.
+#: jetpack_vendor/automattic/jetpack-paypal-payments/src/paypal-payment-buttons/class-paypal-partner-onboarding.php:510
+msgid "Attention: Please confirm your email address on %s in order to receive payments! You currently cannot receive payments."
+msgstr "Atención: confirma tu dirección de correo electrónico en %s para recibir pagos. Actualmente no puedes recibir pagos."
+
 #: jetpack_vendor/automattic/jetpack-paypal-payments/src/paypal-payment-buttons/class-paypal-partner-onboarding.php:478
 msgid "Merchant integration info not available. Please reconnect your PayPal account."
 msgstr "Información de integración del vendedor no disponible. Vuelve a conectar tu cuenta de PayPal."
@@ -216,6 +681,10 @@ msgstr "PayPal no ha devuelto un ID de vendedor para esta cuenta. Intenta conect
 #: jetpack_vendor/automattic/jetpack-paypal-payments/src/paypal-payment-buttons/class-paypal-partner-onboarding.php:377
 msgid "Onboarding session expired. Please try connecting again."
 msgstr "Sesión de incorporación caducada. Intenta conectarte de nuevo."
+
+#: jetpack_vendor/automattic/jetpack-paypal-payments/src/paypal-payment-buttons/class-paypal-partner-onboarding.php:341
+msgid "WordPress.com created the PayPal onboarding link without a tracking ID."
+msgstr "WordPress.com creó el enlace de incorporación a PayPal sin un ID de seguimiento."
 
 #: jetpack_vendor/automattic/jetpack-paypal-payments/src/paypal-payment-buttons/class-paypal-partner-onboarding.php:333
 msgid "PayPal returned a successful response but no onboarding URL was included."
@@ -249,6 +718,10 @@ msgstr "PayPal ha informado: %1$s (ID de depuración %2$s)."
 #: jetpack_vendor/automattic/jetpack-paypal-payments/src/paypal-payment-buttons/class-paypal-oauth.php:607
 msgid "Your PayPal app does not have access to Payment Links & Buttons. In the PayPal Developer Dashboard, open your app settings and enable the \"Payment Links & Buttons\" feature, then try connecting again."
 msgstr "Tu aplicación de PayPal no tiene acceso a los enlaces y botones de pago. En el escritorio de PayPal para desarrolladores, abre los ajustes de tu aplicación y activa la función \"Botones y enlaces de pago\". A continuación, intenta conectarte de nuevo."
+
+#: jetpack_vendor/automattic/jetpack-paypal-payments/src/paypal-payment-buttons/class-paypal-oauth.php:603
+msgid "PayPal did not grant this site access to Payment Links & Buttons for your account. Please try connecting again and accept every permission PayPal asks for."
+msgstr "PayPal no ha concedido a este sitio acceso a los botones y enlaces de pago de tu cuenta. Intenta conectarte de nuevo y acepta todos los permisos que pide PayPal."
 
 #: jetpack_vendor/automattic/jetpack-paypal-payments/src/paypal-payment-buttons/class-paypal-oauth.php:495
 msgid "PayPal returned a successful response but no access token was included."
@@ -291,6 +764,10 @@ msgstr "Enlace de pago de %1$s: %2$s"
 #: jetpack_vendor/automattic/jetpack-paypal-payments/src/paypal-payment-buttons/class-paypal-email-sender.php:225
 msgid "Payment link sent to %s."
 msgstr "Enlace de pago enviado a %s."
+
+#: jetpack_vendor/automattic/jetpack-paypal-payments/src/paypal-payment-buttons/class-paypal-email-sender.php:171
+msgid "This payment link has no price."
+msgstr "Este enlace de pago no tiene precio."
 
 #: jetpack_vendor/automattic/jetpack-paypal-payments/src/paypal-payment-buttons/class-paypal-email-sender.php:133
 msgid "Daily email limit reached. Please try again tomorrow."
@@ -350,9 +827,25 @@ msgid "Prices in %s must be whole numbers (e.g., \"1500\")."
 msgstr "Los precios en %s deben ser números enteros (por ejemplo, \"1500\")."
 
 #. translators: %d: maximum allowed characters
+#. translators: %d: maximum number of characters allowed for the return URL
+#: jetpack_vendor/automattic/jetpack-paypal-payments/src/paypal-payment-buttons/class-paypal-attribute-mapper.php:560
+#: jetpack_vendor/automattic/jetpack-paypal-payments/dist/paypal-payment-buttons/editor.js:25
+msgid "Return URL must be %d characters or fewer."
+msgstr "La URL de retorno debe tener %d caracteres o menos."
+
+#: jetpack_vendor/automattic/jetpack-paypal-payments/src/paypal-payment-buttons/class-paypal-attribute-mapper.php:552
+msgid "Return URL must be a valid URL."
+msgstr "La URL de retorno debe ser una URL válida."
+
+#. translators: %d: maximum allowed characters
 #: jetpack_vendor/automattic/jetpack-paypal-payments/src/paypal-payment-buttons/class-paypal-attribute-mapper.php:539
 msgid "Button text must be %d characters or fewer."
 msgstr "El texto del botón debe tener %d caracteres o menos."
+
+#. translators: %d: maximum allowed characters
+#: jetpack_vendor/automattic/jetpack-paypal-payments/src/paypal-payment-buttons/class-paypal-attribute-mapper.php:526
+msgid "Product ID must be %d characters or fewer."
+msgstr "El ID del producto debe tener %d caracteres o menos."
 
 #. translators: %d: maximum allowed characters
 #. translators: %d: maximum number of characters allowed for the description
@@ -436,6 +929,11 @@ msgstr "La solicitud contiene datos no válidos. Comprueba tus datos e inténtal
 #: jetpack_vendor/automattic/jetpack-paypal-payments/src/paypal-payment-buttons/class-paypal-api-client.php:681
 msgid "Please fix the following: %s"
 msgstr "Corrige lo siguiente: %s"
+
+#. translators: %s: PayPal's debug ID for the failed request.
+#: jetpack_vendor/automattic/jetpack-paypal-payments/src/paypal-payment-buttons/class-paypal-api-client.php:643
+msgid "PayPal debug ID: %s."
+msgstr "ID de depuración de PayPal: %s."
 
 #. translators: %s: error message from the HTTP request
 #: jetpack_vendor/automattic/jetpack-paypal-payments/src/paypal-payment-buttons/class-paypal-api-client.php:606
@@ -615,6 +1113,16 @@ msgstr "Eliminar enlace de pago"
 msgid "Next Page"
 msgstr "Página siguiente"
 
+#: jetpack_vendor/automattic/jetpack-paypal-payments/src/paypal-payment-buttons/class-paypal-admin-page.php:602
+#: jetpack_vendor/automattic/jetpack-paypal-payments/dist/paypal-payment-buttons/editor.js:1
+msgid "How to issue a refund"
+msgstr "Cómo emitir reembolsos"
+
+#: jetpack_vendor/automattic/jetpack-paypal-payments/src/paypal-payment-buttons/class-paypal-admin-page.php:597
+#: jetpack_vendor/automattic/jetpack-paypal-payments/dist/paypal-payment-buttons/editor.js:1
+msgid "View transactions"
+msgstr "Ver transacciones"
+
 #: jetpack_vendor/automattic/jetpack-paypal-payments/src/paypal-payment-buttons/class-paypal-admin-page.php:560
 msgid "You do not have permission to access this page."
 msgstr "No tienes autorización para acceder a esta página"
@@ -673,14 +1181,268 @@ msgstr[1] "Está incrustado en %d entradas publicadas, que mostrarán botones ro
 msgid "This will permanently delete your payment link. Any links, QR codes, or embedded buttons using this payment will stop working and cannot be recovered."
 msgstr "Esto eliminará permanentemente tu enlace de pago. Los enlaces, códigos QR o botones incrustados que utilicen este pago dejarán de funcionar y no se podrán recuperar."
 
+#: jetpack_vendor/automattic/jetpack-paypal-payments/src/legacy/class-order-rest-controller.php:37
+msgid "Sorry, you are not allowed to view orders."
+msgstr "Lo siento, no tienes permisos para ver pedidos."
+
+#: jetpack_vendor/automattic/jetpack-password-checker/src/class-password-checker.php:153
+msgid "This password is too easy to guess: you can improve it by making it longer."
+msgstr "Esta contraseña es demasiado fácil de adivinar: puedes mejorarla haciéndola más larga."
+
+#. translators: %s: Parameter name.
+#: jetpack_vendor/automattic/jetpack-newsletter/src/class-subscriber-stats-controller.php:222
+msgid "%s must be a real calendar day in YYYY-MM-DD format."
+msgstr "%s debe ser un día natural real en formato AAAA-MM-DD."
+
+#: jetpack_vendor/automattic/jetpack-newsletter/src/class-action-bar.php:1202
+msgid "Learn more about the Action Bar"
+msgstr "Más información sobre la barra de acciones"
+
+#: jetpack_vendor/automattic/jetpack-newsletter/src/class-action-bar.php:1200
+msgid "Hide the Action Bar on the front end of the site."
+msgstr "Ocultar la barra de acciones en el front end del sitio."
+
+#: jetpack_vendor/automattic/jetpack-newsletter/src/class-action-bar.php:1188
+msgid "Action Bar visibility"
+msgstr "Visibilidad de la barra de acciones"
+
+#: jetpack_vendor/automattic/jetpack-newsletter/src/class-action-bar.php:1027
+msgid "Turn off this bar"
+msgstr "Desactivar esta barra"
+
+#: jetpack_vendor/automattic/jetpack-newsletter/src/class-action-bar.php:1003
+msgid "Report this content"
+msgstr "Denunciar este contenido"
+
 #: jetpack_vendor/automattic/jetpack-newsletter/src/class-action-bar.php:961
 #: jetpack_vendor/automattic/jetpack-newsletter/src/class-action-bar.php:970
 msgid "Manage subscriptions"
 msgstr "Gestionar suscripciones"
 
+#: jetpack_vendor/automattic/jetpack-newsletter/src/class-action-bar.php:939
+msgid "Get theme"
+msgstr "Obtener tema"
+
+#: jetpack_vendor/automattic/jetpack-newsletter/src/class-action-bar.php:930
+msgid "View site in Reader"
+msgstr "Ver sitio web en el Lector"
+
+#: jetpack_vendor/automattic/jetpack-newsletter/src/class-action-bar.php:921
+msgid "View post in Reader"
+msgstr "Ver entrada en el Lector"
+
+#: jetpack_vendor/automattic/jetpack-newsletter/src/class-action-bar.php:912
+msgid "Copy shortlink"
+msgstr "Copiar enlace corto"
+
+#: jetpack_vendor/automattic/jetpack-newsletter/src/class-action-bar.php:890
+msgid "Site options"
+msgstr "Opciones del sitio"
+
+#. translators: %s is a URL
+#: jetpack_vendor/automattic/jetpack-newsletter/src/class-action-bar.php:851
+msgid "Have a WordPress.com account? <a href=\"%s\">Log in now.</a>"
+msgstr "¿Tienes cuenta de WordPress.com? <a href=\"%s\">Inicia sesión ahora.</a>"
+
+#: jetpack_vendor/automattic/jetpack-newsletter/src/class-action-bar.php:845
+msgid "Sign me up"
+msgstr "Suscríbeme"
+
+#: jetpack_vendor/automattic/jetpack-newsletter/src/class-action-bar.php:839
+msgid "Email address"
+msgstr "Dirección de correo electrónico"
+
+#: jetpack_vendor/automattic/jetpack-newsletter/src/class-action-bar.php:839
+msgid "Want updates? Enter your email"
+msgstr "¿Quieres novedades? Introduce tu correo electrónico"
+
+#: jetpack_vendor/automattic/jetpack-newsletter/src/class-action-bar.php:822
+msgid "Email me new comments"
+msgstr "Recibir un correo electrónico con cada comentario nuevo"
+
+#: jetpack_vendor/automattic/jetpack-newsletter/src/class-action-bar.php:805
+msgid "Instantly"
+msgstr "Al instante"
+
+#: jetpack_vendor/automattic/jetpack-newsletter/src/class-action-bar.php:803
+msgid "Email frequency"
+msgstr "Frecuencia de envío de correos electrónicos"
+
+#: jetpack_vendor/automattic/jetpack-newsletter/src/class-action-bar.php:799
+msgid "Email me new posts"
+msgstr "Recibir un correo electrónico con cada entrada nueva"
+
+#: jetpack_vendor/automattic/jetpack-newsletter/src/class-action-bar.php:790
+msgid "Receive web and mobile notifications for new posts from this site."
+msgstr "Recibe notificaciones por web y móvil sobre nuevas entradas en este sitio web."
+
+#: jetpack_vendor/automattic/jetpack-newsletter/src/class-action-bar.php:786
+msgid "Notify me of new posts"
+msgstr "Quiero recibir una notificación con cada entrada nueva"
+
+#: jetpack_vendor/automattic/jetpack-newsletter/src/class-action-bar.php:724
+msgid "Site actions"
+msgstr "Acciones del sitio"
+
+#: jetpack_vendor/automattic/jetpack-newsletter/src/class-action-bar.php:214
+msgid "Copied to clipboard."
+msgstr "Copiado al portapapeles."
+
+#: jetpack_vendor/automattic/jetpack-newsletter/src/class-action-bar.php:213
+#: jetpack_vendor/automattic/jetpack-newsletter/src/class-action-bar.php:1018
+msgid "Expand this bar"
+msgstr "Expandir esta barra"
+
+#: jetpack_vendor/automattic/jetpack-newsletter/src/class-action-bar.php:212
+#: jetpack_vendor/automattic/jetpack-newsletter/src/class-action-bar.php:1018
+msgid "Collapse this bar"
+msgstr "Contraer esta barra"
+
+#: jetpack_vendor/automattic/jetpack-newsletter/src/class-action-bar.php:211
+msgid "New posts from this site will now appear in your <a href=\"https://wordpress.com/reader\">Reader</a>"
+msgstr "Las nuevas publicaciones de este sitio aparecerán ahora en tu <a href=\"https://wordpress.com/reader\">Lector</a>"
+
+#: jetpack_vendor/automattic/jetpack-newsletter/src/class-action-bar.php:170
+msgid "Subscription Manager"
+msgstr "Gestor de suscripciones"
+
+#. translators: %s is a link with its text (Subscription Manager) translated
+#. separately
+#: jetpack_vendor/automattic/jetpack-newsletter/src/class-action-bar.php:169
+msgid "You already have several pending email subscriptions. Approve or delete a few through your %s before attempting to subscribe to more blogs."
+msgstr "Ya tienes varias suscripciones pendientes por correo electrónico. Debes aprobar o eliminar unas cuantas mediante tu %s para poder suscribirte a más blogs."
+
+#. translators: %s is the URL of the support contact page.
+#: jetpack_vendor/automattic/jetpack-newsletter/src/class-action-bar.php:149
+msgid "You’ll get an email with a link to confirm your subscription. If it doesn’t arrive, please <a href=\"%s\">contact us</a>."
+msgstr "Recibirás un correo electrónico con un enlace para confirmar tu suscripción. Si no llega, por favor, <a href=\"%s\">contáctanos</a>."
+
+#: jetpack_vendor/automattic/jetpack-newsletter/src/class-action-bar.php:144
+msgid "Thanks"
+msgstr "Gracias"
+
+#: jetpack_vendor/automattic/jetpack-my-jetpack/src/products/class-search.php:504
+#: jetpack_vendor/automattic/jetpack-my-jetpack/src/products/class-search.php:512
+#: jetpack_vendor/automattic/jetpack-search/src/class-rest-controller.php:653
+msgid "Jetpack Search Free could not be activated for this site."
+msgstr "No se ha podido activar Jetpack Search Free para este sitio."
+
+#: jetpack_vendor/automattic/jetpack-my-jetpack/src/products/class-search.php:426
+msgid "Activating Jetpack Search Free requires a connected WordPress.com user."
+msgstr "Para activar Jetpack Search Free, es necesario tener un usuario de WordPress.com conectado."
+
+#: jetpack_vendor/automattic/jetpack-my-jetpack/src/products/class-search.php:412
+msgid "Connect your site to WordPress.com to activate Jetpack Search."
+msgstr "Conecta tu sitio a WordPress.com para activar Jetpack Search."
+
+#: jetpack_vendor/automattic/jetpack-my-jetpack/src/products/class-search.php:402
+msgid "Jetpack Search Free is activated through WordPress.com on this site."
+msgstr "Jetpack Search Free se activa a través de WordPress.com en este sitio."
+
+#: jetpack_vendor/automattic/jetpack-my-jetpack/src/products/class-search.php:389
+msgid "You are not allowed to activate Jetpack Search Free on this site."
+msgstr "No tienes permiso para activar Jetpack Search Free en este sitio."
+
+#: jetpack_vendor/automattic/jetpack-my-jetpack/src/products/class-activity-log.php:129
+msgid "A record of every event on your site, so you can see what happened and roll back when something goes wrong"
+msgstr "Un registro de todos los eventos de tu sitio para que puedas ver lo que ha ocurrido y volver atrás cuando algo vaya mal"
+
+#: jetpack_vendor/automattic/jetpack-my-jetpack/src/products/class-activity-log.php:120
+msgid "See what happened on your site and when"
+msgstr "Consulta qué ha ocurrido en tu sitio y cuándo"
+
+#: jetpack_vendor/automattic/jetpack-my-jetpack/src/class-rest-products.php:99
+msgid "Where the activation was requested from."
+msgstr "Desde dónde se solicitó la activación."
+
+#: jetpack_vendor/automattic/jetpack-my-jetpack/src/class-rest-main-features.php:387
+#: jetpack_vendor/automattic/jetpack-my-jetpack/src/class-rest-main-features.php:417
+msgid "That plugin is not installed."
+msgstr "Ese plugin no está instalado."
+
+#: jetpack_vendor/automattic/jetpack-my-jetpack/src/class-rest-main-features.php:362
+msgid "This plugin runs the page you are on, so it cannot be deactivated from here."
+msgstr "Este plugin ejecuta la página en la que estás, por lo que no se puede desactivar desde aquí."
+
+#: jetpack_vendor/automattic/jetpack-my-jetpack/src/class-rest-main-features.php:335
+msgid "WordPress could not write to this site’s plugins folder. Install it from the Plugins screen instead, or ask your host for help."
+msgstr "WordPress no ha podido escribir en la carpeta de plugins de este sitio. Instálalo desde la pantalla de plugins o pide ayuda a tu proveedor de alojamiento."
+
+#: jetpack_vendor/automattic/jetpack-my-jetpack/src/class-rest-main-features.php:333
+msgid "The plugin could not be downloaded from WordPress.org. Check that your site can reach WordPress.org, then try again."
+msgstr "El plugin no se ha podido descargar de WordPress.org. Comprueba que tu sitio puede conectarse a WordPress.org e inténtalo de nuevo."
+
+#: jetpack_vendor/automattic/jetpack-my-jetpack/src/class-rest-main-features.php:313
+msgid "Your account can’t install plugins on this site. Ask a site administrator to install it."
+msgstr "Con tu cuenta no se pueden instalar plugins en este sitio. Pídele a un administrador del sitio que lo instale."
+
+#: jetpack_vendor/automattic/jetpack-my-jetpack/src/class-rest-main-features.php:306
+msgid "Plugin installs are turned off on this site. Ask your host or site administrator to install it."
+msgstr "Las instalaciones de plugins están desactivadas en este sitio. Pide a tu proveedor de alojamiento o administrador del sitio que lo instale."
+
+#: jetpack_vendor/automattic/jetpack-my-jetpack/src/class-rest-main-features.php:290
+msgid "Could not be switched off."
+msgstr "No se ha podido desactivar."
+
+#: jetpack_vendor/automattic/jetpack-my-jetpack/src/class-rest-main-features.php:289
+msgid "Could not be switched on. It may need a Jetpack connection, or a plan that includes it."
+msgstr "No se ha podido activar. Puede que necesite una conexión de Jetpack o un plan que la incluya."
+
+#: jetpack_vendor/automattic/jetpack-my-jetpack/src/class-rest-main-features.php:283
+msgid "Stays on: enabled by your host or site administrator."
+msgstr "Permanece activado: activado por tu proveedor de alojamiento o administrador del sitio."
+
+#: jetpack_vendor/automattic/jetpack-my-jetpack/src/class-rest-main-features.php:282
+msgid "Stays off: disabled by your host or site administrator."
+msgstr "Permanece desactivado: desactivado por tu proveedor de alojamiento o administrador del sitio."
+
+#: jetpack_vendor/automattic/jetpack-my-jetpack/src/class-rest-main-features.php:267
+msgid "That Jetpack module was not found."
+msgstr "No se ha encontrado el módulo de Jetpack."
+
+#: jetpack_vendor/automattic/jetpack-my-jetpack/src/class-rest-main-features.php:233
+msgid "You are not allowed to manage Jetpack modules on this site."
+msgstr "No tienes permisos para gestionar módulos de Jetpack en este sitio."
+
+#: jetpack_vendor/automattic/jetpack-my-jetpack/src/class-rest-main-features.php:215
+msgid "Plugins can only be deactivated together while the Jetpack plugin is active. Deactivate them one at a time instead."
+msgstr "Los plugins solo se pueden desactivar juntos mientras el plugin de Jetpack esté activo. Desactívalos de uno en uno."
+
+#: jetpack_vendor/automattic/jetpack-my-jetpack/src/class-rest-main-features.php:140
+msgid "The banner could not be dismissed."
+msgstr "No se ha podido descartar la pancarta."
+
+#: jetpack_vendor/automattic/jetpack-my-jetpack/src/class-main-features.php:855
+msgid "Engagement"
+msgstr "Implicación"
+
+#: jetpack_vendor/automattic/jetpack-my-jetpack/src/class-main-features.php:851
+msgid "Search engines"
+msgstr "Motores de búsqueda"
+
 #: jetpack_vendor/automattic/jetpack-my-jetpack/src/class-main-features.php:480
 msgid "Up to 1TB of video storage"
 msgstr "Hasta 1 TB de almacenamiento de vídeo"
+
+#: jetpack_vendor/automattic/jetpack-my-jetpack/src/class-main-features.php:479
+msgid "Host unlimited videos"
+msgstr "Aloja vídeos ilimitados"
+
+#: jetpack_vendor/automattic/jetpack-my-jetpack/src/class-main-features.php:476
+msgid "Match the player to your brand"
+msgstr "Adapta el reproductor a tu marca"
+
+#: jetpack_vendor/automattic/jetpack-my-jetpack/src/class-main-features.php:475
+msgid "Ad-free playback up to 4K"
+msgstr "Reproducción sin anuncios hasta 4K"
+
+#: jetpack_vendor/automattic/jetpack-my-jetpack/src/class-main-features.php:474
+msgid "Host one video"
+msgstr "Alojar un vídeo"
+
+#: jetpack_vendor/automattic/jetpack-my-jetpack/src/class-main-features.php:469
+msgid "Keep the focus on your videos with ad-free playback that fits your brand. Drag and drop videos into the WordPress editor to get started."
+msgstr "Céntrate en tus vídeos con una reproducción sin anuncios que se adapte a tu marca. Arrastra y suelta vídeos en el editor de WordPress para empezar."
 
 #: jetpack_vendor/automattic/jetpack-my-jetpack/src/class-main-features.php:468
 msgid "Share ad-free, high-quality video that keeps visitors on your site."
@@ -697,6 +1459,14 @@ msgstr "Estadísticas del dispositivo para ver cómo navegan los visitantes por 
 #: jetpack_vendor/automattic/jetpack-my-jetpack/src/class-main-features.php:450
 msgid "UTM tracking to see which campaigns bring you traffic"
 msgstr "Seguimiento UTM para ver qué campañas traen tráfico"
+
+#: jetpack_vendor/automattic/jetpack-my-jetpack/src/class-main-features.php:447
+msgid "Referrers and visitor countries"
+msgstr "Países de los visitantes y los referentes"
+
+#: jetpack_vendor/automattic/jetpack-my-jetpack/src/class-main-features.php:446
+msgid "Views, visitors and top posts"
+msgstr "Vistas, visitantes y entradas principales"
 
 #: jetpack_vendor/automattic/jetpack-my-jetpack/src/class-main-features.php:440
 msgid "Track views, visitors, top posts, referrers and visitor countries right from your WordPress dashboard. Learn what works without seeing who your individual visitors are."
@@ -718,6 +1488,18 @@ msgstr "Guarda plantillas de mensajes reutilizables para cada cuenta"
 msgid "Tailor the message and media for each network"
 msgstr "Adapta el mensaje y los medios a cada red"
 
+#: jetpack_vendor/automattic/jetpack-my-jetpack/src/class-main-features.php:418
+msgid "Facebook, Instagram, Threads, Bluesky, LinkedIn and more"
+msgstr "Facebook, Instagram, Threads, Bluesky, LinkedIn y más"
+
+#: jetpack_vendor/automattic/jetpack-my-jetpack/src/class-main-features.php:417
+msgid "Automatic sharing when you publish"
+msgstr "Compartir automáticamente al publicar"
+
+#: jetpack_vendor/automattic/jetpack-my-jetpack/src/class-main-features.php:416
+msgid "Unlimited shares"
+msgstr "Comparticiones ilimitadas"
+
 #: jetpack_vendor/automattic/jetpack-my-jetpack/src/class-main-features.php:411
 msgid "Reach your followers on Facebook, Instagram, Threads, Bluesky, LinkedIn, Mastodon, Nextdoor and Tumblr without leaving WordPress. Posts share automatically when you publish, and you can re-share or schedule them later."
 msgstr "Llega a tus seguidores en Facebook, Instagram, Threads, Bluesky, LinkedIn, Mastodon, Nextdoor y Tumblr sin salir de WordPress. Las entradas se comparten automáticamente cuando las publicas y puedes volver a compartirlas o programarlas más tarde."
@@ -737,6 +1519,22 @@ msgstr "Respuestas de IA sin los límites del plan gratuito"
 #: jetpack_vendor/automattic/jetpack-my-jetpack/src/class-main-features.php:392
 msgid "Room for more records and monthly searches as your site grows"
 msgstr "Más registros y búsquedas mensuales a medida que tu sitio crece"
+
+#: jetpack_vendor/automattic/jetpack-my-jetpack/src/class-main-features.php:389
+msgid "Filters for category, tag, date and author"
+msgstr "Filtros por categoría, etiqueta, fecha y autor"
+
+#: jetpack_vendor/automattic/jetpack-my-jetpack/src/class-main-features.php:388
+msgid "Results as visitors type"
+msgstr "Resultados como tipo de visitantes"
+
+#: jetpack_vendor/automattic/jetpack-my-jetpack/src/class-main-features.php:387
+msgid "Up to 500 search requests per month"
+msgstr "Hasta 500 solicitudes de búsqueda al mes"
+
+#: jetpack_vendor/automattic/jetpack-my-jetpack/src/class-main-features.php:385
+msgid "To start using it, choose a plan next, including a free one."
+msgstr "Para empezar a usarlo, elige un plan a continuación, incluido uno gratuito."
 
 #: jetpack_vendor/automattic/jetpack-my-jetpack/src/class-main-features.php:381
 msgid "Visitors see relevant results as they type and can filter by category, tag, date or author, so they find what they need instead of leaving. Match search to your theme without writing code."
@@ -758,6 +1556,18 @@ msgstr "Reglas automáticas del cortafuegos que bloquean las solicitudes dañina
 msgid "Daily malware scanning with one-click fixes for most threats"
 msgstr "Análisis de malware diario con correcciones en un clic para la mayoría de las amenazas"
 
+#: jetpack_vendor/automattic/jetpack-my-jetpack/src/class-main-features.php:359
+msgid "Block IP addresses yourself"
+msgstr "Bloquea las direcciones IP tú mismo"
+
+#: jetpack_vendor/automattic/jetpack-my-jetpack/src/class-main-features.php:358
+msgid "Automatic blocking of login attacks"
+msgstr "Bloqueo automático de los ataques de acceso"
+
+#: jetpack_vendor/automattic/jetpack-my-jetpack/src/class-main-features.php:357
+msgid "Daily checks for known vulnerabilities"
+msgstr "Comprobaciones diarias de vulnerabilidades conocidas"
+
 #: jetpack_vendor/automattic/jetpack-my-jetpack/src/class-main-features.php:349
 msgid "Your WordPress version, plugins and themes are checked daily against a database of known vulnerabilities, with results in your dashboard. Login attacks are blocked automatically, and you can block specific IP addresses yourself."
 msgstr "Tu versión de WordPress, plugins y temas se cotejan diariamente con una base de datos de vulnerabilidades conocidas, con resultados en tu escritorio. Los ataques de acceso se bloquean automáticamente y puedes bloquear direcciones IP específicas."
@@ -765,6 +1575,10 @@ msgstr "Tu versión de WordPress, plugins y temas se cotejan diariamente con una
 #: jetpack_vendor/automattic/jetpack-my-jetpack/src/class-main-features.php:348
 msgid "Get warned about vulnerable plugins and stop login attacks on your site."
 msgstr "Recibe avisos sobre plugins vulnerables y deja de recibir ataques de acceso en tu sitio."
+
+#: jetpack_vendor/automattic/jetpack-my-jetpack/src/class-main-features.php:335
+msgid "Video episodes and Podcasting 2.0 support"
+msgstr "Compatibilidad con Podcasting 2.0 y episodios de vídeo"
 
 #: jetpack_vendor/automattic/jetpack-my-jetpack/src/class-main-features.php:334
 msgid "An episode player with chapters, transcripts and soundbites"
@@ -778,6 +1592,26 @@ msgstr "Un escritorio de episodios para todo tu catálogo"
 msgid "Listener stats by episode, app and country"
 msgstr "Estadísticas del oyente por episodio, aplicación y país"
 
+#: jetpack_vendor/automattic/jetpack-my-jetpack/src/class-main-features.php:329
+msgid "New episodes go out to your newsletter subscribers and the WordPress.com Reader"
+msgstr "Los nuevos episodios se envían a los suscriptores de tu newsletter y al Lector de WordPress.com"
+
+#: jetpack_vendor/automattic/jetpack-my-jetpack/src/class-main-features.php:328
+msgid "Submit to Apple Podcasts, Spotify and more"
+msgstr "Enviar a Apple Podcasts, Spotify y más"
+
+#: jetpack_vendor/automattic/jetpack-my-jetpack/src/class-main-features.php:327
+msgid "A podcast feed on your own domain"
+msgstr "Un feed de podcast en tu propio dominio"
+
+#: jetpack_vendor/automattic/jetpack-my-jetpack/src/class-main-features.php:326
+msgid "Unlimited episodes, each one a post on your site"
+msgstr "Episodios ilimitados, cada uno como una entrada en tu sitio"
+
+#: jetpack_vendor/automattic/jetpack-my-jetpack/src/class-main-features.php:321
+msgid "Your show lives on your own site, so the feed, the audio and your listeners stay yours, with no separate podcast service to sign up for. Submit it to Apple Podcasts, Spotify, Pocket Casts and more, and your newsletter subscribers get new episodes too."
+msgstr "Tu programa se aloja en tu propio sitio, por lo que el feed, el audio y tus oyentes seguirán siendo tuyos, sin necesidad de registrarte en un servicio de pódcast independiente. Envíalo a Apple Podcasts, Spotify, Pocket Casts y más, y tus suscriptores de la newsletter también recibirán los nuevos episodios."
+
 #: jetpack_vendor/automattic/jetpack-my-jetpack/src/class-main-features.php:320
 msgid "Start a podcast on your own site and reach listeners on every major app."
 msgstr "Crea un podcast en tu propio sitio y llega a los oyentes en todas las aplicaciones principales."
@@ -785,6 +1619,36 @@ msgstr "Crea un podcast en tu propio sitio y llega a los oyentes en todas las ap
 #: jetpack_vendor/automattic/jetpack-my-jetpack/src/class-main-features.php:305
 msgid "Import as many subscribers as you like"
 msgstr "Importa tantos suscriptores como quieras"
+
+#. translators: %d is the percentage fee, such as 10.
+#: jetpack_vendor/automattic/jetpack-my-jetpack/src/class-main-features.php:302
+#: jetpack_vendor/automattic/jetpack-my-jetpack/src/class-main-features.php:307
+msgid "Paid newsletter with a %d%% fee on subscriptions"
+msgstr "Newsletter de pago con una tasa del %d%% sobre las suscripciones"
+
+#: jetpack_vendor/automattic/jetpack-my-jetpack/src/class-main-features.php:300
+msgid "New subscribers from the WordPress.com Reader"
+msgstr "Nuevos suscriptores del Lector de WordPress.com"
+
+#: jetpack_vendor/automattic/jetpack-my-jetpack/src/class-main-features.php:299
+msgid "Subscribe forms and pop-ups to collect subscribers on your site"
+msgstr "Formularios de suscripción y ventanas emergentes para captar suscriptores en tu sitio"
+
+#: jetpack_vendor/automattic/jetpack-my-jetpack/src/class-main-features.php:298
+msgid "Import up to 100 subscribers"
+msgstr "Importa hasta 100 suscriptores"
+
+#: jetpack_vendor/automattic/jetpack-my-jetpack/src/class-main-features.php:297
+msgid "No limit on subscribers or email sends"
+msgstr "Sin límite de suscriptores ni de envíos de correo electrónico"
+
+#: jetpack_vendor/automattic/jetpack-my-jetpack/src/class-main-features.php:292
+msgid "Every post you publish goes out by email, with no cap on subscribers or sends. New readers find you through the WordPress.com Reader, and when you’re ready, you can charge for your newsletter."
+msgstr "Cada entrada que publicas se envía por correo electrónico, sin límite de suscriptores ni de envíos. Los nuevos lectores te encuentran a través del Lector de WordPress.com y, cuando estés listo, puedes cobrar por tu newsletter."
+
+#: jetpack_vendor/automattic/jetpack-my-jetpack/src/class-main-features.php:291
+msgid "Build your subscriber list and email your newsletter automatically."
+msgstr "Crea tu lista de suscriptores y envía automáticamente tu newsletter por correo electrónico."
 
 #: jetpack_vendor/automattic/jetpack-my-jetpack/src/class-main-features.php:278
 msgid "Up to 10 files per field, 20 MB each"
@@ -797,6 +1661,14 @@ msgstr "Los archivos de los visitantes permanecen privados, visibles solo para t
 #: jetpack_vendor/automattic/jetpack-my-jetpack/src/class-main-features.php:276
 msgid "Secure file uploads that keep harmful files off your server"
 msgstr "Subidas de archivos seguras que mantienen los archivos dañinos fuera de tu servidor"
+
+#: jetpack_vendor/automattic/jetpack-my-jetpack/src/class-main-features.php:273
+msgid "Multi-step forms with a progress bar"
+msgstr "Formularios de varios pasos con una barra de progreso"
+
+#: jetpack_vendor/automattic/jetpack-my-jetpack/src/class-main-features.php:272
+msgid "Unlimited responses, by email and in your dashboard"
+msgstr "Respuestas ilimitadas, por correo electrónico y en tu escritorio"
 
 #: jetpack_vendor/automattic/jetpack-my-jetpack/src/class-main-features.php:267
 msgid "Break long forms into steps with a progress bar, and get every response by email and in your dashboard, with no limit on responses. Upgrade to add secure file uploads that keep harmful files off your server."
@@ -813,6 +1685,24 @@ msgstr "Jetpack AI Assistant"
 #: jetpack_vendor/automattic/jetpack-my-jetpack/src/class-main-features.php:251
 msgid "Generate a logo for your site"
 msgstr "Genera un logotipo para tu sitio"
+
+#. translators: %d is the number of free requests, such as 20.
+#: jetpack_vendor/automattic/jetpack-my-jetpack/src/class-main-features.php:250
+msgid "Keep creating after your %d free request runs out"
+msgid_plural "Keep creating after your %d free requests run out"
+msgstr[0] "Sigue creando cuando se acabe tu %d solicitud gratuita"
+msgstr[1] "Sigue creando cuando se agoten tus %d solicitudes gratuitas"
+
+#: jetpack_vendor/automattic/jetpack-my-jetpack/src/class-main-features.php:246
+msgid "Generate, rewrite and translate in the editor"
+msgstr "Genera, reescribe y traduce en el editor"
+
+#. translators: %d is the number of free requests, such as 20.
+#: jetpack_vendor/automattic/jetpack-my-jetpack/src/class-main-features.php:245
+msgid "%d request to try it out"
+msgid_plural "%d requests to try it out"
+msgstr[0] "%d solicitud para probarlo"
+msgstr[1] "%d solicitudes para probarlo"
 
 #: jetpack_vendor/automattic/jetpack-my-jetpack/src/class-main-features.php:239
 msgid "Generate posts, tables, forms and images from a prompt, then change the tone, translate, or fix unclear sentences to make your writing easier to read. Before you publish, improve your title and create a featured image in one click."
@@ -838,6 +1728,18 @@ msgstr "Acepta pagos a través de Stripe y PayPal"
 msgid "A sales dashboard, sales funnels and automations to follow up on leads"
 msgstr "Un escritorio de ventas, embudos de ventas y automatizaciones para hacer un seguimiento de los clientes potenciales"
 
+#: jetpack_vendor/automattic/jetpack-my-jetpack/src/class-main-features.php:217
+msgid "Customer data that stays on your site"
+msgstr "Datos del cliente que permanecen en tu sitio"
+
+#: jetpack_vendor/automattic/jetpack-my-jetpack/src/class-main-features.php:216
+msgid "Quotes and invoices"
+msgstr "Cotizaciones y facturas"
+
+#: jetpack_vendor/automattic/jetpack-my-jetpack/src/class-main-features.php:215
+msgid "Leads, contacts and each customer’s history"
+msgstr "Clientes potenciales, contactos e historial de cada cliente"
+
 #: jetpack_vendor/automattic/jetpack-my-jetpack/src/class-main-features.php:210
 msgid "Track leads, send quotes and invoices, and see each customer’s full history from your dashboard. Because it runs on your own site, your customer data stays yours."
 msgstr "Haz un seguimiento de los clientes potenciales, envía presupuestos y facturas y consulta el historial completo de cada cliente desde tu escritorio. Como se ejecuta en tu propio sitio, los datos de tus clientes permanecen tuyos."
@@ -858,6 +1760,18 @@ msgstr "Historial de rendimiento para móviles y ordenadores de sobremesa, inclu
 msgid "Critical CSS that updates automatically as your site changes"
 msgstr "CSS crítico que se actualiza automáticamente a medida que cambia tu sitio"
 
+#: jetpack_vendor/automattic/jetpack-my-jetpack/src/class-main-features.php:188
+msgid "Mobile and desktop performance scores"
+msgstr "Puntuaciones de rendimiento en móviles y ordenadores"
+
+#: jetpack_vendor/automattic/jetpack-my-jetpack/src/class-main-features.php:187
+msgid "Resized images from a worldwide image CDN"
+msgstr "Imágenes redimensionadas a partir de una CDN de imágenes mundial"
+
+#: jetpack_vendor/automattic/jetpack-my-jetpack/src/class-main-features.php:186
+msgid "Page caching and deferred JavaScript"
+msgstr "Caché de página y JavaScript diferido"
+
 #: jetpack_vendor/automattic/jetpack-my-jetpack/src/class-main-features.php:180
 msgid "Your pages reach visitors sooner: Boost caches them, defers non-essential JavaScript and serves resized images from a worldwide network. Mobile and desktop performance scores show you the impact of each change."
 msgstr "Tus páginas llegan a los visitantes antes: Boost las almacena en caché, aplaza el JavaScript no esencial y ofrece imágenes de tamaño reducido de una red mundial. Las puntuaciones de rendimiento para móviles y ordenadores de sobremesa te muestran el impacto de cada cambio."
@@ -865,6 +1779,22 @@ msgstr "Tus páginas llegan a los visitantes antes: Boost las almacena en caché
 #: jetpack_vendor/automattic/jetpack-my-jetpack/src/class-main-features.php:179
 msgid "Make your site load faster in a few clicks, no developer required."
 msgstr "Haz que tu sitio se cargue más rápido en unos pocos clics, sin necesidad de desarrolladores."
+
+#: jetpack_vendor/automattic/jetpack-my-jetpack/src/class-main-features.php:165
+msgid "Pay only for the ad views you get"
+msgstr "Paga solo por las visualizaciones que reciban tus anuncios"
+
+#: jetpack_vendor/automattic/jetpack-my-jetpack/src/class-main-features.php:164
+msgid "Set a budget for each campaign"
+msgstr "Establece un presupuesto para cada campaña"
+
+#: jetpack_vendor/automattic/jetpack-my-jetpack/src/class-main-features.php:163
+msgid "No subscription required"
+msgstr "Sin necesidad de suscripción"
+
+#: jetpack_vendor/automattic/jetpack-my-jetpack/src/class-main-features.php:157
+msgid "Turn a post or page into an ad shown across Tumblr and WordPress.com, aimed at the locations, languages and interests you choose."
+msgstr "Convierte una entrada o una página en un anuncio que se muestre en Tumblr y WordPress.com, dirigido a las ubicaciones, los idiomas y los intereses que elijas."
 
 #: jetpack_vendor/automattic/jetpack-my-jetpack/src/class-main-features.php:156
 msgid "Put your best posts in front of new readers on WordPress.com and Tumblr."
@@ -887,6 +1817,10 @@ msgstr "Restauraciones con un solo clic, incluso desde la aplicación móvil de 
 msgid "Real-time backups of your files, database and WooCommerce orders"
 msgstr "Copias de seguridad en tiempo real de tus archivos, bases de datos y pedidos de WooCommerce"
 
+#: jetpack_vendor/automattic/jetpack-my-jetpack/src/class-main-features.php:136
+msgid "Backups start once you add a paid plan."
+msgstr "Las copias de seguridad se inician cuando añades un plan de pago."
+
 #: jetpack_vendor/automattic/jetpack-my-jetpack/src/class-main-features.php:132
 msgid "Every change you make is saved off-site as it happens, so your content and WooCommerce orders stay safe even if your host goes down. Restore your site in one click, even when it is offline."
 msgstr "Cada cambio que hagas se guardará fuera del sitio a medida que ocurra, por lo que tu contenido y tus pedidos de WooCommerce estarán seguros incluso si tu proveedor de alojamiento se cae. Restaura tu sitio con un solo clic, incluso sin conexión."
@@ -907,6 +1841,18 @@ msgstr "Estadísticas y diagnósticos avanzados para tu actividad de spam"
 msgid "Use it on business and commercial sites"
 msgstr "Utilízalo en sitios comerciales y de negocios"
 
+#: jetpack_vendor/automattic/jetpack-my-jetpack/src/class-main-features.php:110
+msgid "For personal, non-commercial sites"
+msgstr "Para sitios personales, no comerciales"
+
+#: jetpack_vendor/automattic/jetpack-my-jetpack/src/class-main-features.php:109
+msgid "No CAPTCHAs for your visitors"
+msgstr "No hay CAPTCHA para tus visitantes"
+
+#: jetpack_vendor/automattic/jetpack-my-jetpack/src/class-main-features.php:108
+msgid "Comment and form spam filtering"
+msgstr "Filtrado de spam en comentarios y formularios"
+
 #: jetpack_vendor/automattic/jetpack-my-jetpack/src/class-main-features.php:103
 msgid "Akismet filters spam out of your comments and form submissions in the background, so you stop moderating junk and visitors never have to prove they are human. When it gets one wrong, mark it and Akismet learns from your correction."
 msgstr "Akismet filtra el spam de tus comentarios y envíos de formularios en segundo plano, para que dejes de moderar la basura y los visitantes nunca tengan que demostrar que son humanos. Cuando se equivoque, márcalo y Akismet aprenderá de tu corrección."
@@ -923,6 +1869,14 @@ msgstr "Filtrar eventos por tipo y rango de fechas"
 msgid "30 days of history with VaultPress Backup or Jetpack Security, a full year with Jetpack Complete"
 msgstr "30 días de historial con VaultPress Backup o Jetpack Security, un año completo con Jetpack Complete"
 
+#: jetpack_vendor/automattic/jetpack-my-jetpack/src/class-main-features.php:83
+msgid "Who changed what, from posts to plugin updates and logins"
+msgstr "Quién cambió qué, desde las entradas hasta las actualizaciones de plugins y los inicios de sesión"
+
+#: jetpack_vendor/automattic/jetpack-my-jetpack/src/class-main-features.php:82
+msgid "Your 20 most recent events"
+msgstr "Tus 20 eventos más recientes"
+
 #: jetpack_vendor/automattic/jetpack-my-jetpack/src/class-main-features.php:77
 msgid "When something breaks, see exactly what changed and who changed it, from published posts to plugin updates and logins. Every connected site gets its 20 most recent events for free."
 msgstr "Cuando algo falla, ves exactamente qué ha cambiado y quién lo ha cambiado, desde las entradas publicadas hasta las actualizaciones de plugins y los accesos. Todos los sitios conectados reciben gratis los 20 eventos más recientes."
@@ -930,6 +1884,34 @@ msgstr "Cuando algo falla, ves exactamente qué ha cambiado y quién lo ha cambi
 #: jetpack_vendor/automattic/jetpack-my-jetpack/src/class-main-features.php:76
 msgid "See what changed on your site, when it happened, and who did it."
 msgstr "Consulta qué ha cambiado en tu sitio, cuándo ha ocurrido y quién es el responsable."
+
+#: jetpack_vendor/automattic/jetpack-my-jetpack/src/class-initializer.php:411
+msgctxt "Navigation item"
+msgid "Features"
+msgstr "Funciones"
+
+#. translators: 1: Admin color scheme name, e.g. "Aquatic". 2: URL of the user
+#. profile page.
+#: jetpack_vendor/automattic/jetpack-masterbar/src/admin-color-schemes/class-admin-color-schemes.php:263
+msgid "Your current <strong>%1$s</strong> admin color scheme is no longer compatible with the editor. It is now retired and will be removed soon. <a href=\"%2$s\">Switch to a different color scheme now</a>."
+msgstr "La combinación de colores de tu administrador actual <strong>%1$s</strong> ya no es compatible con el editor. Se ha retirado y se eliminará pronto. <a href=\"%2$s\">Cambia ahora una combinación de colores diferente</a>."
+
+#. translators: %s: Admin color scheme name, e.g. "Aquatic".
+#: jetpack_vendor/automattic/jetpack-masterbar/src/admin-color-schemes/class-admin-color-schemes.php:121
+msgid "%s (Retired)"
+msgstr "%s (retirado)"
+
+#: jetpack_vendor/automattic/jetpack-forms/src/contact-form/class-contact-form-endpoint.php:1517
+msgid "No valid responses to delete."
+msgstr "No hay respuestas válidas que eliminar."
+
+#: jetpack_vendor/automattic/jetpack-forms/src/contact-form/class-contact-form-endpoint.php:1374
+msgid "Delete at most this many responses, then report whether more remain."
+msgstr "Elimina como máximo estas respuestas y, a continuación, indica si quedan más."
+
+#: jetpack_vendor/automattic/jetpack-connection/src/health/class-connection-health-tests.php:702
+msgid "Your site is blocking requests from WordPress.com"
+msgstr "Tu sitio está bloqueando las solicitudes de WordPress.com"
 
 #: jetpack_vendor/automattic/jetpack-connection/src/health/class-connection-health-tests.php:680
 msgid "Ask your hosting provider to renew your site's SSL certificate or complete its certificate chain. Reconnecting will not resolve this. If you need further help, contact Jetpack support."
@@ -939,6 +1921,103 @@ msgstr "Pide a tu proveedor de hosting que renueve el certificado SSL de tu siti
 msgid "WordPress.com could not establish a secure connection to your site because your site's SSL certificate could not be verified. This is usually caused by an expired or self-signed certificate, or a missing intermediate certificate."
 msgstr "WordPress.com no ha podido establecer una conexión segura con tu sitio porque no se ha podido verificar el certificado SSL del sitio. Esto se debe a un certificado caducado o autofirmado, o a un certificado intermedio que falta."
 
+#. translators: %1$s opens a link to Jetpack's IP allowlist documentation, %2$s
+#. closes it (it also carries hidden text noting the link opens in a new tab).
+#. Place them around the phrase that should be linked.
+#: jetpack_vendor/automattic/jetpack-connection/src/health/class-connection-health-tests.php:652
+msgid "Jetpack Connection uses your site's xmlrpc.php file to securely communicate with WordPress.com. Ask your host or security provider to %1$sallowlist Jetpack Connection IPs%2$s — reconnecting will not resolve this. If you need further help, contact Jetpack support."
+msgstr "Jetpack Connection utiliza el archivo xmlrpc.php de tu sitio para comunicarse de forma segura con WordPress.com. Pide a tu proveedor de hosting o de seguridad que %1$sañada a la lista de elementos permitidos las IPs de Jetpack Connection%2$s. Volver a conectar no resolverá este problema. Si necesitas más ayuda, ponte en contacto con el soporte de Jetpack."
+
+#: jetpack_vendor/automattic/jetpack-connection/src/health/class-connection-health-tests.php:648
+msgid "This is usually caused by a security plugin, firewall, or server rule rejecting requests from WordPress.com."
+msgstr "Esto suele deberse a que un plugin de seguridad, un cortafuegos o una regla del servidor rechazan las solicitudes de WordPress.com."
+
+#: jetpack_vendor/automattic/jetpack-connection/src/health/class-connection-health-tests.php:646
+msgid "WordPress.com reached your site but the request was blocked."
+msgstr "WordPress.com ha accedido a tu sitio, pero la solicitud ha sido bloqueada."
+
+#. translators: %d is the HTTP status code (e.g. 403) the site returned.
+#: jetpack_vendor/automattic/jetpack-connection/src/health/class-connection-health-tests.php:643
+msgid "WordPress.com reached your site but the request was blocked (HTTP %d)."
+msgstr "WordPress.com ha accedido a tu sitio, pero la solicitud ha sido bloqueada (HTTP %d)."
+
+#: jetpack_vendor/automattic/jetpack-connection/src/health/class-connection-health-tests.php:528
+msgid "WordPress.com could not complete the connection test. This is usually temporary."
+msgstr "WordPress.com no ha podido completar la prueba de conexión. Suele ser un problema temporal."
+
+#. translators: %s is the HTTP status code returned by WordPress.com.
+#: jetpack_vendor/automattic/jetpack-connection/src/health/class-connection-health-tests.php:426
+msgid "Connection test failed: WordPress.com returned an empty response (status code: %s)."
+msgstr "Prueba de conexión fallida: WordPress.com ha devuelto una respuesta vacía (código de estado: %s)."
+
+#: jetpack_vendor/automattic/jetpack-connection/src/health/class-connection-health-tests.php:385
+msgid "A previous connection health test failed, so this test was skipped."
+msgstr "Ha fallado una prueba de estado de conexión anterior, por lo que se ha omitido esta prueba."
+
+#: jetpack_vendor/automattic/jetpack-connection/src/health/class-connection-health-tests.php:383
+msgid "Your site is not communicating with WordPress.com, so this test was skipped."
+msgstr "Tu sitio no se está comunicando con WordPress.com, por lo que se ha omitido esta prueba."
+
+#: jetpack_vendor/automattic/jetpack-connection/src/health/class-connection-health-tests.php:381
+msgid "Your site is in Safe Mode, so this test was skipped."
+msgstr "Tu sitio está en modo seguro, por lo que se ha omitido esta prueba."
+
+#: jetpack_vendor/automattic/jetpack-connection/src/health/class-connection-health-tests.php:379
+msgid "Your site is in Offline Mode, so this test was skipped."
+msgstr "Tu sitio está en modo sin conexión, por lo que se ha omitido esta prueba."
+
+#: jetpack_vendor/automattic/jetpack-connection/src/class-site-health.php:145
+msgid "PHP XML Support"
+msgstr "Compatibilidad con XML en PHP"
+
+#: jetpack_vendor/automattic/jetpack-connection/src/class-site-health.php:144
+msgid "Server Port"
+msgstr "Puerto del servidor"
+
+#: jetpack_vendor/automattic/jetpack-connection/src/class-site-health.php:143
+msgid "Site XML-RPC Endpoint"
+msgstr "Punto de conexión XML-RPC del sitio"
+
+#: jetpack_vendor/automattic/jetpack-connection/src/class-site-health.php:141
+msgid "Requests from WordPress.com"
+msgstr "Solicitudes de WordPress.com"
+
+#: jetpack_vendor/automattic/jetpack-connection/src/class-site-health.php:140
+msgid "Connection Tokens"
+msgstr "Tokens de conexión"
+
+#: jetpack_vendor/automattic/jetpack-connection/src/class-site-health.php:139
+msgid "Site Address"
+msgstr "Dirección del sitio"
+
+#: jetpack_vendor/automattic/jetpack-connection/src/class-site-health.php:138
+msgid "Connection Owner Permissions"
+msgstr "Permisos del propietario de la conexión"
+
+#: jetpack_vendor/automattic/jetpack-connection/src/class-site-health.php:137
+msgid "Connection Owner"
+msgstr "Propietario de la conexión"
+
+#: jetpack_vendor/automattic/jetpack-connection/src/class-site-health.php:135
+msgid "Site Token"
+msgstr "Token del sitio"
+
+#: jetpack_vendor/automattic/jetpack-connection/src/class-manager.php:3916
+msgid "Your account could not be disconnected from WordPress.com. Please try again."
+msgstr "No se ha podido desconectar tu cuenta de WordPress.com. Inténtalo de nuevo."
+
+#: jetpack_vendor/automattic/jetpack-connection/src/class-manager.php:3900
+msgid "The site connection is broken. An administrator needs to restore it before you can reconnect your account."
+msgstr "La conexión del sitio está interrumpida. Un administrador debe restaurarla para que puedas volver a conectar tu cuenta."
+
+#: jetpack_vendor/automattic/jetpack-connection/src/class-manager.php:3892
+msgid "The site connection could not be checked. Please try again shortly."
+msgstr "No se ha podido comprobar la conexión del sitio. Vuelve a intentarlo dentro de unos minutos."
+
+#: jetpack_vendor/automattic/jetpack-connection/src/class-manager.php:3881
+msgid "An administrator needs to restore the Jetpack connection."
+msgstr "Un administrador debe restaurar la conexión de Jetpack."
+
 #: jetpack_vendor/automattic/jetpack-connection/src/class-manager.php:2119
 msgid "The connection owner is locked on this site."
 msgstr "El propietario de la conexión está bloqueado en este sitio."
@@ -947,6 +2026,26 @@ msgstr "El propietario de la conexión está bloqueado en este sitio."
 msgid "Could not clear the protected owner."
 msgstr "No se ha podido borrar el propietario protegido."
 
+#: jetpack_vendor/automattic/jetpack-connection/src/class-manager.php:1892
+msgid "This site is already protected by a different WordPress.com account. Contact support."
+msgstr "Este sitio ya está protegido por una cuenta de WordPress.com diferente. Ponte en contacto con el soporte técnico."
+
+#: jetpack_vendor/automattic/jetpack-connection/src/class-manager.php:1861
+msgid "Only the confirmed owner can release ownership of this site."
+msgstr "Solo el propietario confirmado puede liberar la propiedad de este sitio."
+
+#: jetpack_vendor/automattic/jetpack-connection/src/class-manager.php:1843
+msgid "Ownership was released with WordPress.com, but this site could not finish clearing it. Try again."
+msgstr "Se ha liberado la propiedad con WordPress.com, pero este sitio no ha podido terminar de borrarla. Inténtalo de nuevo."
+
+#: jetpack_vendor/automattic/jetpack-connection/src/class-manager.php:1830
+msgid "Could not release the protected owner with WordPress.com."
+msgstr "No se ha podido liberar al propietario protegido con WordPress.com."
+
+#: jetpack_vendor/automattic/jetpack-connection/src/class-manager.php:1816
+msgid "Could not reach WordPress.com to release the protected owner."
+msgstr "No se ha podido contactar con WordPress.com para liberar al propietario protegido."
+
 #: jetpack_vendor/automattic/jetpack-connection/src/class-manager.php:1752
 msgid "Could not store the protected owner."
 msgstr "No se ha podido almacenar el propietario protegido."
@@ -954,6 +2053,14 @@ msgstr "No se ha podido almacenar el propietario protegido."
 #: jetpack_vendor/automattic/jetpack-connection/src/class-manager.php:1735
 msgid "Could not confirm the protected owner with WordPress.com."
 msgstr "No se ha podido confirmar el propietario protegido con WordPress.com."
+
+#: jetpack_vendor/automattic/jetpack-connection/src/class-manager.php:1720
+msgid "Could not reach WordPress.com to confirm the protected owner."
+msgstr "No se ha podido contactar con WordPress.com para confirmar el propietario protegido."
+
+#: jetpack_vendor/automattic/jetpack-connection/src/class-manager.php:1700
+msgid "A protected owner can only be recorded by the user confirming it."
+msgstr "Un propietario protegido solo puede ser registrado por el usuario que lo confirme."
 
 #: jetpack_vendor/automattic/jetpack-connection/src/class-manager.php:1690
 msgid "The protected owner must be an administrator."
@@ -969,10 +2076,146 @@ msgstr "No tienes permiso para gestionar el propietario protegido."
 msgid "WordPress.com cannot securely connect to your site because its SSL certificate could not be verified. See Site Health for details and next steps."
 msgstr "WordPress.com no ha podido conectar de forma segura con tu sitio porque no se ha podido verificar su certificado SSL. Consulta Salud del sitio para ver los detalles y los próximos pasos."
 
+#: jetpack_vendor/automattic/jetpack-connection/src/class-error-handler.php:437
+msgid "Your WordPress.com account connection is broken, and the site connection needs attention too. Ask an administrator to restore the site connection, then reconnect your account."
+msgstr "La conexión de tu cuenta de WordPress.com está interrumpida y la conexión del sitio también necesita atención. Pide a un administrador que restaure la conexión del sitio y, a continuación, reconecta tu cuenta."
+
+#: jetpack_vendor/automattic/jetpack-comments/src/identity/checkpoint/class-checkpoint.php:300
+msgid "Sign-in is unavailable right now. Go back and try again in a moment."
+msgstr "El inicio de sesión no está disponible en estos momentos. Vuelve atrás e inténtalo de nuevo dentro de un momento."
+
+#: jetpack_vendor/automattic/jetpack-comments/src/identity/checkpoint/class-checkpoint.php:296
+msgid "Your sign-in could not be verified. Go back and sign in again to leave your comment."
+msgstr "No se ha podido verificar tu inicio de sesión. Vuelve atrás y accede de nuevo para dejar tu comentario."
+
+#: jetpack_vendor/automattic/jetpack-comments/src/identity/checkpoint/class-checkpoint.php:288
+msgid "Too many sign-in attempts right now. Go back and try again in a moment."
+msgstr "Hay demasiados intentos de inicio de sesión en este momento. Vuelve atrás e inténtalo de nuevo dentro de un momento."
+
+#: jetpack_vendor/automattic/jetpack-comments/src/identity/checkpoint/class-checkpoint.php:283
+msgid "Your sign-in has expired. Go back and sign in again to leave your comment."
+msgstr "Tu sesión de inicio de sesión ha caducado. Vuelve atrás y accede de nuevo para dejar tu comentario."
+
+#: jetpack_vendor/automattic/jetpack-comments/src/identity/checkpoint/class-checkpoint.php:114
+msgid "Invalid request."
+msgstr "Solicitud no válida."
+
 #: jetpack_vendor/automattic/jetpack-comments/src/identity/checkpoint/class-checkpoint-endpoint.php:185
 #: jetpack_vendor/automattic/jetpack-paypal-payments/src/paypal-payment-buttons/class-paypal-api-client.php:713
 msgid "Too many requests. Please wait a moment and try again."
 msgstr "Demasiadas solicitudes. Espera un momento e inténtalo de nuevo."
+
+#: jetpack_vendor/automattic/jetpack-comments/src/identity/checkpoint/class-checkpoint-endpoint.php:146
+#: jetpack_vendor/automattic/jetpack-comments/src/identity/checkpoint/class-checkpoint-endpoint.php:171
+#: jetpack_vendor/automattic/jetpack-comments/src/identity/checkpoint/class-checkpoint.php:118
+msgid "Sign-in is not available on this site."
+msgstr "El inicio de sesión no está disponible en este sitio."
+
+#: jetpack_vendor/automattic/jetpack-comments/src/form/class-comment-form.php:434
+msgid "Too many sign-in attempts. Please wait a moment and try again."
+msgstr "Demasiados intentos de inicio de sesión. Espera un momento e inténtalo de nuevo."
+
+#: jetpack_vendor/automattic/jetpack-comments/src/form/class-comment-form.php:433
+msgid "This comment is too long to post. Shorten it to send it."
+msgstr "Este comentario es demasiado largo para publicarlo. Acórtalo para enviarlo."
+
+#: jetpack_vendor/automattic/jetpack-comments/src/form/class-comment-form.php:432
+msgid "We could not sign you in. Please try again."
+msgstr "No hemos podido iniciar sesión. Inténtalo de nuevo."
+
+#: jetpack_vendor/automattic/jetpack-comments/src/form/class-comment-form.php:430
+msgid "Add your name"
+msgstr "Añade tu nombre"
+
+#: jetpack_vendor/automattic/jetpack-comments/src/form/class-comment-form.php:426
+msgid "You must be logged in to post a comment."
+msgstr "Debes iniciar sesión para publicar un comentario."
+
+#: jetpack_vendor/automattic/jetpack-comments/src/form/class-comment-form.php:420
+msgid "No, thanks. I just want to post a comment"
+msgstr "No, gracias. Solo quiero publicar un comentario"
+
+#: jetpack_vendor/automattic/jetpack-comments/src/form/class-comment-form.php:419
+msgid "Continue as a guest"
+msgstr "Continuar como invitado"
+
+#: jetpack_vendor/automattic/jetpack-comments/src/form/class-comment-form.php:418
+msgid "Enter your name and email to comment."
+msgstr "Introduce tu nombre y tu correo electrónico para comentar."
+
+#: jetpack_vendor/automattic/jetpack-comments/src/form/class-comment-form.php:416
+msgid "That email belongs to a WordPress.com account. Log in with WordPress.com to use it, or enter a different email."
+msgstr "Ese correo electrónico pertenece a una cuenta de WordPress.com. Accede con WordPress.com para usarlo o introduce un correo electrónico diferente."
+
+#: jetpack_vendor/automattic/jetpack-comments/src/form/class-comment-form.php:415
+msgid "Address never made public"
+msgstr "La dirección no se hará pública"
+
+#: jetpack_vendor/automattic/jetpack-comments/src/form/class-comment-form.php:305
+msgid "logged in"
+msgstr "sesión iniciada"
+
+#. translators: %s is a link to the log-in page.
+#: jetpack_vendor/automattic/jetpack-comments/src/form/class-comment-form.php:304
+msgid "You must be %s to post a comment."
+msgstr "Debes estar listo %s para publicar un comentario."
+
+#. translators: %s is the site's name.
+#: jetpack_vendor/automattic/jetpack-comments/src/form/class-comment-form.php:217
+msgid "Subscribe to keep up with %s."
+msgstr "Suscríbete para estar al día de %s."
+
+#: jetpack_vendor/automattic/jetpack-comments/src/form/class-comment-form.php:213
+#: jetpack_vendor/automattic/jetpack-comments/src/form/class-comment-form.php:214
+msgid "Notify me of new comments by email."
+msgstr "Notificarme los nuevos comentarios por correo electrónico."
+
+#: jetpack_vendor/automattic/jetpack-comments/src/editor/class-block-editor.php:232
+#: jetpack_vendor/automattic/jetpack-comments/src/form/class-comment-form.php:405
+#: jetpack_vendor/automattic/jetpack-comments/build/909.js:104
+msgid "Block tools"
+msgstr "Herramientas del bloque"
+
+#: jetpack_vendor/automattic/jetpack-ads/src/class-analytics-dashboard.php:86
+msgid "Ads performance"
+msgstr "Rendimiento de los anuncios"
+
+#: jetpack_vendor/automattic/jetpack-account-protection/src/class-password-detection.php:651
+msgid "Too many incorrect verification codes. Please request a new code."
+msgstr "Demasiados códigos de verificación incorrectos. Solicita un código nuevo."
+
+#: jetpack_vendor/automattic/jetpack-account-protection/src/class-password-detection.php:640
+msgid "Too many incorrect verification codes. Please try again later."
+msgstr "Demasiados códigos de verificación incorrectos. Inténtalo de nuevo más tarde."
+
+#. translators: %s: Jetpack support link
+#: jetpack_vendor/automattic/jetpack-account-protection/src/class-password-detection.php:396
+msgid "If you did not receive your authentication code or are experiencing difficulties using it, try again later or %s now."
+msgstr "Si no has recibido el código de autenticación o tienes problemas para utilizarlo, inténtalo de nuevo más tarde o pulsa %s ahora."
+
+#: extensions/blocks/zoom-scheduler/render.php:68
+#: _inc/blocks/editor-beta.js:150 _inc/blocks/editor-experimental.js:133
+#: _inc/blocks/editor-no-post-editor.js:44 _inc/blocks/editor.js:133
+msgid "Zoom Scheduler"
+msgstr "Programador de zoom"
+
+#: extensions/blocks/zoom-scheduler/render.php:50
+msgid "Open Zoom Scheduler"
+msgstr "Abrir el programador de zoom"
+
+#. translators: %s is the name of a Jetpack module
+#. translators: %s is a Jetpack module name, such as "Stats".
+#: class.jetpack-cli.php:617
+#: jetpack_vendor/automattic/jetpack-my-jetpack/src/products/class-module-product.php:199
+msgid "%s is enabled by your host or site administrator, so it stays on."
+msgstr "%s está activado por tu proveedor de alojamiento o administrador del sitio, por lo que permanece activado."
+
+#. translators: %s is the name of a Jetpack module
+#. translators: %s is a Jetpack module name, such as "Stats".
+#: class.jetpack-cli.php:597
+#: jetpack_vendor/automattic/jetpack-my-jetpack/src/products/class-module-product.php:170
+msgid "%s is disabled by your host or site administrator, so it stays off."
+msgstr "%s está desactivado por el proveedor de alojamiento o el administrador del sitio, por lo que permanece desactivado."
 
 #: jetpack_vendor/automattic/jetpack-videopress/build/block-editor/blocks/playlist/block.json
 msgctxt "block keyword"
@@ -4665,6 +5908,10 @@ msgstr "Slugs de rol cuyas visitas se cuentan. Puede que esté vacío (cuenta la
 #: jetpack_vendor/automattic/jetpack-stats/src/abilities/class-stats-abilities.php:506
 msgid "Whether to show the Stats item in the admin bar for users who can view Stats."
 msgstr "Si se muestra el elemento Estadísticas en la barra de administración para los usuarios que pueden ver las estadísticas."
+
+#: jetpack_vendor/automattic/jetpack-stats/src/abilities/class-stats-abilities.php:497
+msgid "Update one or more Jetpack Stats settings. All fields are optional; only fields present in the call are written, and unrelated keys are preserved. Idempotent — setting a value to its current state returns changed=false. Shape: { changed, settings: { admin_bar, roles, count_roles, do_not_track } }. Role slugs added to `roles` or `count_roles` must be registered roles on the site; unknown slugs return jetpack_stats_invalid_role. A slug that is already saved is kept even when its role no longer exists. Narrowing `roles` can revoke Stats access for whole groups of users — confirm with the user before removing roles."
+msgstr "Actualiza uno o más ajustes de Jetpack Stats. Todos los campos son opcionales; solo se escriben los campos presentes en la llamada y se conservan las claves no relacionadas. Idempotente: establecer un valor en su estado actual devuelve changed=false. Estructura: { changed, settings: { admin_bar, roles, count_roles, do_not_track } }. Los slugs de roles añadidos a `roles` o `count_roles` deben ser roles registrados en el sitio; los slugs desconocidos devuelven jetpack_stats_invalid_role. Un slug que ya está guardado se mantiene incluso cuando su rol ya no existe. Si se reducen los «roles», se puede revocar el acceso a las estadísticas de grupos completos de usuarios. Confirma con el usuario antes de eliminar los roles."
 
 #: jetpack_vendor/automattic/jetpack-stats/src/abilities/class-stats-abilities.php:496
 msgid "Update Stats settings"
@@ -10267,6 +11514,13 @@ msgstr "Número de peticiones"
 #: jetpack_vendor/automattic/jetpack-my-jetpack/src/products/class-jetpack-ai.php:139
 msgid "Let's get in touch"
 msgstr "Ponte en contacto con nosotros"
+
+#. translators: %d is the number of free requests, such as 20.
+#: jetpack_vendor/automattic/jetpack-my-jetpack/src/products/class-jetpack-ai.php:134
+msgid "Up to %d request"
+msgid_plural "Up to %d requests"
+msgstr[0] "Hasta %d solicitud"
+msgstr[1] "Hasta %d solicitudes"
 
 #: jetpack_vendor/automattic/jetpack-connection/src/class-heartbeat.php:449
 msgid "Prefix to add before the stats identifiers."
@@ -18362,6 +19616,18 @@ msgstr "Título del widget para los seguidores:"
 #: modules/subscriptions/views.php:762
 msgid "Widget title for non-followers:"
 msgstr "Título del widget para los no seguidores:"
+
+#: jetpack_vendor/automattic/jetpack-newsletter/src/class-action-bar.php:180
+msgid "Congrats, you’re subscribed! You’ll get an email with the details of your subscription and an unsubscribe link"
+msgstr "¡Enhorabuena, te has suscrito! Recibirás un correo electrónico con la información de tu suscripción y con un enlace para cancelarla"
+
+#: jetpack_vendor/automattic/jetpack-newsletter/src/class-action-bar.php:176
+msgid "You already have a pending subscription, we just sent you another email, click the link or <a href=\"https://en.support.wordpress.com/contact/\">contact us</a> if you don’t get it"
+msgstr "Ya tienes una suscripción pendiente y acabamos de enviarte otro mensaje de correo electrónico. Haz clic en el enlace o <a href=\"https://en.support.wordpress.com/contact/\">ponte en contacto con nosotros</a> si no lo recibes."
+
+#: jetpack_vendor/automattic/jetpack-newsletter/src/class-action-bar.php:162
+msgid "You’re already subscribed to this site!"
+msgstr "Ya estás suscrito a este sitio."
 
 #: jetpack_vendor/automattic/jetpack-publicize/src/class-publicize-base.php:1127
 msgid "The message to use instead of the title when sharing to Jetpack Social services"

@@ -416,16 +416,66 @@ add_filter('woocommerce_default_address_fields', function($fields) {
 });
 
 add_filter('woocommerce_get_privacy_policy_text', function($text, $type) {
+    $privacy_page_id = wc_privacy_policy_page_id();
+    $privacy_url = $privacy_page_id ? get_permalink($privacy_page_id) : '#';
+    $link = '<a href="' . esc_url($privacy_url) . '" class="woocommerce-privacy-policy-link underline text-[#74A626] font-semibold hover:text-[#5E891C]" target="_blank">' . esc_html__('política de privacidad', 'limaeditores') . '</a>';
+
+    if ($type === 'checkout') {
+        return sprintf(
+            __('Tus datos personales se utilizarán para procesar tu pedido, mejorar tu experiencia en toda esta web y para otros fines descritos en nuestra %s.', 'limaeditores'),
+            $link
+        );
+    }
     if ($type === 'registration') {
-        $privacy_page_id = wc_privacy_policy_page_id();
-        $privacy_url = $privacy_page_id ? get_permalink($privacy_page_id) : '#';
         return sprintf(
             __('Tus datos personales se utilizarán para procesar tus pedidos, mejorar tu experiencia en nuestra librería jurídica y gestionar el acceso a tu cuenta según nuestra %s.', 'limaeditores'),
-            '<a href="' . esc_url($privacy_url) . '" class="woocommerce-privacy-policy-link underline text-[#74A626] font-semibold hover:text-[#5E891C]" target="_blank">' . esc_html__('política de privacidad', 'limaeditores') . '</a>'
+            $link
         );
     }
     return $text;
 }, 20, 2);
+
+/**
+ * Trust badges below Cart Totals checkout button
+ */
+function limaeditores_cart_trust_badges() {
+    ?>
+    <div class="lima-cart-trust-badges">
+        <div class="trust-item">
+            <i class="fa-solid fa-shield-halved"></i>
+            <span>Compra 100% segura con cifrado SSL</span>
+        </div>
+        <div class="trust-item">
+            <i class="fa-solid fa-truck-fast"></i>
+            <span>Envíos rápidos a toda la República Mexicana</span>
+        </div>
+        <div class="trust-item">
+            <i class="fa-solid fa-book-bookmark"></i>
+            <span>Ediciones jurídicas oficiales y vigentes</span>
+        </div>
+    </div>
+    <?php
+}
+add_action('woocommerce_after_cart_totals', 'limaeditores_cart_trust_badges', 20);
+
+/**
+ * Trust badges below Checkout place order button
+ */
+function limaeditores_checkout_trust_badges() {
+    ?>
+    <div class="lima-checkout-trust-badges">
+        <div class="trust-item">
+            <i class="fa-solid fa-lock"></i>
+            <span>Transacción cifrada y protegida</span>
+        </div>
+        <div class="trust-item">
+            <i class="fa-solid fa-file-invoice"></i>
+            <span>Facturación electrónica CFDI</span>
+        </div>
+    </div>
+    <?php
+}
+add_action('woocommerce_review_order_after_submit', 'limaeditores_checkout_trust_badges', 10);
 
 
 

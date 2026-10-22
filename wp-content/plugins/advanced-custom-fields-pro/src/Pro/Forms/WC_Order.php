@@ -1,15 +1,17 @@
 <?php
 /**
- * Adds ACF functionality to WooCommerce HPOS order pages.
+ * @package ACF
+ * @author  WP Engine
  *
- * @package    ACF
- * @subpackage Pro\Forms
- * @author     WP Engine
+ * © 2026 Advanced Custom Fields (ACF®). All rights reserved.
+ * "ACF" is a trademark of WP Engine.
+ * Licensed under the GNU General Public License v2 or later.
+ * https://www.gnu.org/licenses/gpl-2.0.html
  */
 
 namespace ACF\Pro\Forms;
 
-use Automattic\WooCommerce\Internal\DataStores\Orders\CustomOrdersTableController;
+use Automattic\WooCommerce\Utilities\OrderUtil;
 
 /**
  * Adds ACF metaboxes to the new WooCommerce order screen.
@@ -23,7 +25,7 @@ class WC_Order {
 	 */
 	public function __construct() {
 		add_action( 'load-woocommerce_page_wc-orders', array( $this, 'initialize' ) );
-		add_action( 'woocommerce_update_order', array( $this, 'save_order' ), 10, 1 );
+		add_action( 'load-woocommerce_page_wc-orders--shop_subscription', array( $this, 'initialize' ) );
 	}
 
 	/**
@@ -37,6 +39,8 @@ class WC_Order {
 	public function initialize() {
 		acf_enqueue_scripts( array( 'uploader' => true ) );
 		add_action( 'add_meta_boxes', array( $this, 'add_meta_boxes' ), 10, 2 );
+		add_action( 'woocommerce_update_order', array( $this, 'save_order' ), 10, 1 );
+		add_filter( 'acf/form-post/skip_save', array( $this, 'skip_post_save_for_orders' ), 10, 3 );
 	}
 
 	/**
@@ -52,16 +56,20 @@ class WC_Order {
 		// Storage for localized postboxes.
 		$postboxes = array();
 
-		$order  = ( $post instanceof \WP_Post ) ? wc_get_order( $post->ID ) : $post;
-		$screen = class_exists( '\Automattic\WooCommerce\Internal\DataStores\Orders\CustomOrdersTableController' ) && wc_get_container()->get( CustomOrdersTableController::class )->custom_orders_table_usage_is_enabled()
-			? wc_get_page_screen_id( 'shop-order' )
-			: 'shop_order';
+		$location = 'shop_order';
+		$order    = ( $post instanceof \WP_Post ) ? wc_get_order( $post->ID ) : $post;
+		$screen   = $this->is_hpos_enabled() ? wc_get_page_screen_id( 'shop-order' ) : 'shop_order';
+
+		if ( $order instanceof \WC_Subscription ) {
+			$location = 'shop_subscription';
+			$screen   = function_exists( 'wcs_get_page_screen_id' ) ? wcs_get_page_screen_id( 'shop_subscription' ) : 'shop_subscription';
+		}
 
 		// Get field groups for this screen.
 		$field_groups = acf_get_field_groups(
 			array(
 				'post_id'   => $order->get_id(),
-				'post_type' => 'shop_order',
+				'post_type' => $location,
 			)
 		);
 
@@ -69,14 +77,8 @@ class WC_Order {
 		if ( $field_groups ) {
 			foreach ( $field_groups as $field_group ) {
 				$id       = "acf-{$field_group['key']}"; // acf-group_123
-				$title    = $field_group['title'];       // Group 1
 				$context  = $field_group['position'];    // normal, side, acf_after_title
-				$priority = 'high';                      // high, core, default, low
-
-				// Reduce priority for sidebar metaboxes for best position.
-				if ( $context === 'side' ) {
-					$priority = 'core';
-				}
+				$priority = 'core';                      // high, core, default, low
 
 				// Allow field groups assigned to after title to still be rendered.
 				if ( 'acf_after_title' === $context ) {
@@ -105,7 +107,7 @@ class WC_Order {
 				// Add the meta box.
 				add_meta_box(
 					$id,
-					acf_esc_html( $title ),
+					acf_esc_html( acf_get_field_group_title( $field_group ) ),
 					array( $this, 'render_meta_box' ),
 					$screen,
 					$context,
@@ -180,6 +182,43 @@ class WC_Order {
 	}
 
 	/**
+	 * Checks if WooCommerce HPOS is enabled.
+	 *
+	 * @since 6.4.2
+	 *
+	 * @return boolean
+	 */
+	public function is_hpos_enabled(): bool {
+		if ( class_exists( '\Automattic\WooCommerce\Utilities\OrderUtil' ) && OrderUtil::custom_orders_table_usage_is_enabled() ) {
+			return true;
+		}
+
+		return false;
+	}
+
+	/**
+	 * Prevents ACF_Form_Post from saving order posts so that save_order()
+	 * remains the single save entry-point. Without this, the backfill
+	 * triggered by WooCommerce Compatibility Mode fires save_post before
+	 * woocommerce_update_order, consuming the ACF nonce and causing
+	 * save_order() to bail.
+	 *
+	 * @since 6.8.6
+	 *
+	 * @param boolean  $skip    Whether to skip the save.
+	 * @param integer  $post_id The post ID being saved.
+	 * @param \WP_Post $post    The post being saved.
+	 * @return boolean
+	 */
+	public function skip_post_save_for_orders( $skip, $post_id, $post ) {
+		if ( in_array( $post->post_type, array( 'shop_order', 'shop_subscription' ), true ) ) {
+			return true;
+		}
+
+		return $skip;
+	}
+
+	/**
 	 * Saves ACF fields to the current order.
 	 *
 	 * @since 6.4
@@ -188,6 +227,15 @@ class WC_Order {
 	 * @return void
 	 */
 	public function save_order( int $order_id ) {
+		// Bail if not using HPOS to prevent a double-save.
+		if ( ! $this->is_hpos_enabled() ) {
+			return;
+		}
+
+		if ( empty( $_POST['acf'] ) || ! acf_verify_nonce( 'post' ) ) {
+			return;
+		}
+
 		// Remove the action to prevent an infinite loop via $order->save().
 		remove_action( 'woocommerce_update_order', array( $this, 'save_order' ), 10 );
 		acf_save_post( 'woo_order_' . $order_id );
